@@ -1,0 +1,144 @@
+/* 
+  font color: rgb(82,82,82);
+  bg color : rgba(190, 189, 189, 0.911);
+  active color : 
+*/
+
+body {
+  color: rgb(82, 82, 82);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  
+  /*background: #00B4DB; 
+  background: -webkit-linear-gradient(to right, #0083B0, #00B4DB);  
+  background: linear-gradient(to right, #0083B0, #00B4DB); */
+  
+}
+
+[v-cloak] {
+  display: none !important;
+}
+
+
+.test{
+  background-color: bisque;
+  border: 1px solid black;
+}
+
+.delink {
+  color: rgb(82, 82, 82);
+}
+
+.delink:hover {
+  text-decoration: none;
+  color: rgb(82, 82, 82);
+}
+
+.navbar-logo {
+  font-weight: 600;
+}
+.navbar-item {
+  padding-top: 0.8em;
+  padding-bottom: 0.8em;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.navbar-item:hover {
+  background-color: rgba(190, 189, 189, 0.911);
+}
+
+.navbar-btn {
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 1em;
+  padding-right: 1em;
+  border: 1px solid silver;
+  outline : none;
+  background: none;
+}
+
+.navbar-btn:focus {
+  outline: none;
+}
+
+.navbar-btn-blue:hover {
+  background-color: rgba(0, 147, 206, 0.822);
+  border-color: rgba(0, 147, 206, 0.822);
+}
+
+.navbar-btn-blue:active {
+  background-color: rgba(0, 117, 163, 0.822);
+  border-color: rgba(0, 117, 163, 0.822);
+}
+
+.navbar-btn-gray:hover {
+  background-color: rgba(206, 206, 206, 0.822);
+  border-color: rgba(206, 206, 206, 0.822);
+}
+
+.navbar-btn-gray:active {
+  background-color: rgba(126, 126, 126, 0.822);
+  border-color: rgba(126, 126, 126, 0.822);
+}
+
+.navbar-btn-yellow:hover {
+  background-color: rgb(207, 185, 58);
+  border-color: rgb(207, 185, 58);
+}
+
+.navbar-btn-yellow:active {
+  background-color: rgb(182, 148, 0);
+  border-color: rgb(182, 148, 0);
+}
+
+.task-box {
+  background-color: silver;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  padding-left: 1em;
+  padding-right: 1em;
+
+  border-radius: 1em;
+}
+
+
+
+
+
+.task-unit {
+  border-radius: 1em;
+  border-radius: 1em;
+  background-color: rgba(238, 237, 237, 0.815);
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.task-new {
+  /*border: 3px dashed #FF851B !important;*/
+ 
+  border-width: 3px !important;
+  border-style: dashed !important;
+  /*border-color: aliceblue !important;*/
+  
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  padding-left: 1em;
+  padding-right: 1em;
+
+}
+.colleague {
+  width: 3em;
+  height: 3em;
+  background-color: cadetblue;
+  display: inline-block;
+  border-radius: 5em;
+  
+}

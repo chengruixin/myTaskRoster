@@ -1,0 +1,77 @@
+.rounded-1 {
+    border-radius: 0.2em;
+}
+
+.rounded-2 {
+    border-radius: 0.4em;
+}
+
+
+.rounded-3 {
+    border-radius: 0.6em;
+}
+
+
+.rounded-4 {
+    border-radius: 0.8em;
+}
+
+
+.rounded-5 {
+    border-radius: 1em;
+}
+
+.w-75 {
+    width: 75%;
+}
+
+.res-w-10 {
+    max-width: 10rem;
+    width: 100%;
+}
+
+.res-w-15 {
+    max-width: 15rem;
+    width: 100%;
+}
+
+.res-w-20 {
+    max-width: 20rem;
+    width: 100%;
+}
+
+
+.res-w-25 {
+    max-width: 25rem;
+    width: 100%;
+}
+
+.res-w-30 {
+    max-width: 30rem;
+    width: 100%;
+}
+
+.debtn {
+    background: none;
+    border: none;
+}
+
+.debtn:focus {
+    outline: none;
+}
+
+.dplay-none {
+    display: none;
+}
+
+.bder-bottom {
+    border-bottom: 1px solid silver;
+}
+
+.shadow-1 {
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05), 0 20px 48px rgba(0,0,0,0.05), 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.shadow-2 {
+    box-shadow: 0 5px 25px rgba(0,0,0,0.05), 0 10px 48px rgba(10,10,10,0.03), 0 1px 4px rgba(10,10,10,0.1);
+}
