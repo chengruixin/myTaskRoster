@@ -76,3 +76,7 @@
 .shadow-2 {
     box-shadow: 0 5px 25px rgba(0,0,0,0.05), 0 10px 48px rgba(10,10,10,0.03), 0 1px 4px rgba(10,10,10,0.1);
 }
+
+.break {
+    flex-basis: 100%;
+}

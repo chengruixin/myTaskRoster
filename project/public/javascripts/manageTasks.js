@@ -1,7 +1,7 @@
 var mainManage = new Vue({
     el: "#mainManage",
     data : {
-
+        tempArr: [1,2,3,3,2,32,3]
     },
 
     methods : {
@@ -17,6 +17,21 @@ var mainManage = new Vue({
 
 
             e.stopPropagation();
+        },
+        addNewPeople : function(e) {
+            const targetDom = $(e.target);
+            console.log(targetDom.parents(".colleagues").children(".new-colleague"));
+            targetDom.parents(".colleagues").children(".new-colleague").toggle("dplay-none");
+            
+            console.log("activedd");
+            //targetDom.parents(".colleagues").children(".new-colleague").css("display", "none");
+
+            e.stopPropagation();
+        },
+        highlight : function(e){
+            //$(e.target).parents(".assignee").toggle("highlight");
+            console.log($(e.target).parents(".assignee")[0].classList.toggle("clicked"));
+            e.stopPropagation();
         }
     },
 
@@ -26,6 +41,9 @@ var mainManage = new Vue({
             methods : {
                 click : function(e){
                     $(e.target).parents(".task-new").children(".expanded").toggle("dplay-none");
+
+
+                    e.stopPropagation();
                 }
             }
         },
@@ -35,8 +53,12 @@ var mainManage = new Vue({
             methods : {
                 click : function(e){
                     $(e.target).parents(".task-new").children(".expanded").toggle("dplay-none");
+
+                    e.stopPropagation();
                 }
             }
         }
+
+        
     }
 })

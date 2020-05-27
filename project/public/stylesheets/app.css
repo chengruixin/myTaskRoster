@@ -101,17 +101,10 @@ body {
   padding-bottom: 0.5em;
   padding-left: 1em;
   padding-right: 1em;
-
   border-radius: 1em;
 }
 
-
-
-
-
 .task-unit {
-  border-radius: 1em;
-  border-radius: 1em;
   background-color: rgba(238, 237, 237, 0.815);
   margin-top: 0.5em;
   margin-bottom: 0.5em;
@@ -119,6 +112,7 @@ body {
   padding-bottom: 0.5em;
   padding-left: 1em;
   padding-right: 1em;
+  border-radius: 1em;
 }
 
 .task-new {
@@ -137,7 +131,16 @@ body {
 .colleague {
   width: 3em;
   height: 3em;
-  background-color: cadetblue;
+  background-color: rgb(236, 189, 189);
+  display: inline-block;
+  border-radius: 5em;
+  
+}
+
+.colleague-small {
+  width: 2em;
+  height: 2em;
+  background-color: rgb(219, 223, 197);
   display: inline-block;
   border-radius: 5em;
   
@@ -155,3 +158,30 @@ body {
 .underline-input:focus {
   outline:none;
 }
+
+.assignee-skill {
+  margin: 0.2em 0.5em;
+  border-radius: 0.4em;
+  padding: 0.2em 0.8em;
+  border: 1px solid rgb(210, 144, 236);
+  border-bottom: 3px solid rgb(140, 114, 151);
+  background-color: rgba(181, 182, 214, 0.925);
+  color: beige;
+  font-size: 0.8em;
+}
+  
+.assignee {
+  border-radius: 0.5em;
+  margin: 1em;
+  background-color: rgba(255, 200, 200, 0.849);
+}
+.clicked {
+  border: 3px solid cornflowerblue;
+  
+}
+.assignee-head {
+  border-top-left-radius: 0.5em;
+  border-top-right-radius: 0.5em;
+  background-color: rgb(233, 217, 217);
+}
+
