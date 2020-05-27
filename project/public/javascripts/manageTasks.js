@@ -18,5 +18,25 @@ var mainManage = new Vue({
 
             e.stopPropagation();
         }
+    },
+
+    components : {
+        createTask : {
+            template : "#createTask",
+            methods : {
+                click : function(e){
+                    $(e.target).parents(".task-new").children(".expanded").toggle("dplay-none");
+                }
+            }
+        },
+
+        createGroup : {
+            template : "#createGroup",
+            methods : {
+                click : function(e){
+                    $(e.target).parents(".task-new").children(".expanded").toggle("dplay-none");
+                }
+            }
+        }
     }
 })
