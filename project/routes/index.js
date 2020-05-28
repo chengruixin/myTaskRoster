@@ -14,4 +14,8 @@ router.get('/manageTasks', (req,res)=>{
   res.render('manageTasks.ejs');
 });
 
+router.get('/profile', (req,res)=>{
+  res.render('profile.ejs');
+});
+
 module.exports = router;

@@ -5,7 +5,7 @@ var mainManage = new Vue({
     },
 
     methods : {
-        expand : function(e){
+        expandGroup : function(e){
             const targetDom = e.target;
             $(targetDom).parents(".task-box").children(".expanded").toggle("dplay-none");
             $($(targetDom).parents(".task-box")[0].querySelector(".toShowContent")).toggle("dplay-none");
@@ -18,6 +18,22 @@ var mainManage = new Vue({
 
             e.stopPropagation();
         },
+
+        expandTask : function(e){
+            const targetDom = e.target;
+            $(targetDom).parents(".task-unit").children(".expanded").toggle("dplay-none");
+            $($(targetDom).parents(".task-unit")[0].querySelector(".toShowContent")).toggle("dplay-none");
+            $($(targetDom).parents(".task-unit")[0].querySelector(".toHideContent")).toggle("dplay-none");
+
+            //debug
+            //console.log($(targetDom).parents(".task-box")[0].querySelector(".toShowContent"));
+            //console.log($(targetDom).parents(".task-box").children(".expanded"));
+
+
+            e.stopPropagation();
+        },
+
+
         addNewPeople : function(e) {
             const targetDom = $(e.target);
             console.log(targetDom.parents(".colleagues").children(".new-colleague"));

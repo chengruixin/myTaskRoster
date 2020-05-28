@@ -137,6 +137,17 @@ body {
   
 }
 
+
+.colleague-lg {
+  width: 4em;
+  height: 4em;
+  background-color: rgb(108, 151, 111);
+  display: inline-block;
+  border-radius: 5em;
+  
+}
+
+
 .colleague-small {
   width: 2em;
   height: 2em;
@@ -182,6 +193,26 @@ body {
 .assignee-head {
   border-top-left-radius: 0.5em;
   border-top-right-radius: 0.5em;
-  background-color: rgb(233, 217, 217);
+  background-color: rgba(233, 217, 217, 0.466);
 }
 
+.positive-mg {
+  margin-left: 0;
+  margin-right: 0;
+}
+.info-table {
+  border: 1px solid rgb(221, 221, 221);
+  padding-top: 1em;
+
+  border-radius: 0.4em;
+
+}
+
+.info-item {
+  border-top: 1px solid rgb(221, 221, 221);
+  padding: 1.3em 1em;
+}
+
+.info-item:hover {
+  background-color: rgba(221, 221, 221, 0.151);
+}
