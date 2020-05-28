@@ -216,3 +216,45 @@ body {
 .info-item:hover {
   background-color: rgba(221, 221, 221, 0.151);
 }
+
+/* people's preferred tasks */
+/*.preference {
+  border-radius: 1em;
+  border: 1px solid rgb(221, 221, 221);
+  padding: 0.2em 1em 0.2em 0.5em;
+}*/
+
+.preference {
+  display: flex;
+  margin: 0.5em;
+}
+.preference-tag {
+  border-top-left-radius: 1em;
+  border-bottom-left-radius: 1em;
+  border-left: 1px solid rgb(221, 221, 221);
+  border-top: 1px solid rgb(221, 221, 221);
+  border-bottom: 1px solid rgb(221, 221, 221);
+  padding: 0 0.2em 0 0.5em;
+}
+.preference-delete {
+  border: 1px solid rgb(221, 221, 221);
+  border-top-right-radius: 1em;
+  border-bottom-right-radius: 1em;
+  padding: 0 0.5em;
+  background: none;
+}
+
+.preference-delete:focus {
+  outline: none;
+}
+.preference-new {
+  padding: 0 0.8em;
+  background: none;
+  border: 3px dashed rgb(221, 221, 221);
+  border-radius: 1em;
+  
+}
+
+.preference-new:focus {
+  outline: none;
+}
