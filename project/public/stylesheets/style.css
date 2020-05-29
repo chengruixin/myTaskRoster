@@ -102,3 +102,53 @@
 .break {
     flex-basis: 100%;
 }
+
+.underline-input {
+  background: none;
+  border: none;
+  border-bottom: 1px solid rgb(221,221,221);
+  width: 8em;
+  padding: 0.5em 0;
+  
+}
+
+.underline-input:focus {
+  outline:none;
+}
+
+.underline-date {
+  text-align: center;
+  border: none;
+  border-bottom: 1px solid rgb(221, 221, 221) ;
+  padding: 0.2em 1em;
+  background: none;
+  
+}
+
+.no-focus:focus {
+  outline: none;
+}
+
+.underline-div {
+  border: none;
+  border-bottom: 1px solid rgb(221,221,221);
+  padding: 0.5em;
+}
+
+.rounded-div {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    padding-left: 1em;
+    padding-right: 1em;
+    border-radius: 1em;
+}
+
+.clip-content {
+    background-clip: content-box;
+}
+
+.clip-padding {
+    background-clip: padding-box;
+}

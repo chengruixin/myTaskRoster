@@ -18,4 +18,8 @@ router.get('/profile', (req,res)=>{
   res.render('profile.ejs');
 });
 
+router.get('/email', (req,res)=>{
+  res.render('email.ejs');
+});
+
 module.exports = router;

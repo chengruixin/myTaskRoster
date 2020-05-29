@@ -58,3 +58,7 @@
 .indent-8 {
   text-indent: 2em;
 }
+
+.text-wrap {
+  overflow-wrap: break-word;
+}
