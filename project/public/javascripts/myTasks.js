@@ -21,13 +21,23 @@ var main = new Vue({
         //    e.stopPropagation();
         //},
 
-        expand : function(e){
+        expandGroup : function(e){
             const targetDom = e.target;
             console.log($(targetDom).parents(".task-box").children(".expanded"));
             $(targetDom).parents(".task-box").children(".expanded").toggle("dplay-none");
             console.log($(targetDom).parents(".task-box")[0].querySelector(".toShowContent"));
             $($(targetDom).parents(".task-box")[0].querySelector(".toShowContent")).toggle("dplay-none");
             $($(targetDom).parents(".task-box")[0].querySelector(".toHideContent")).toggle("dplay-none");
+            e.stopPropagation();
+        },
+
+        expandTask : function(e){
+            const targetDom = e.target;
+            console.log($(targetDom).parents(".task-unit").children(".expanded"));
+            $(targetDom).parents(".task-unit").children(".expanded").toggle("dplay-none");
+            console.log($(targetDom).parents(".task-unit")[0].querySelector(".toShowContent"));
+            $($(targetDom).parents(".task-unit")[0].querySelector(".toShowContent")).toggle("dplay-none");
+            $($(targetDom).parents(".task-unit")[0].querySelector(".toHideContent")).toggle("dplay-none");
             e.stopPropagation();
         }
     }

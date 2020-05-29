@@ -51,6 +51,28 @@
     width: 100%;
 }
 
+.res-w-35 {
+    max-width: 35rem;
+    width: 100%;
+}
+
+
+.res-w-40 {
+    max-width: 40rem;
+    width: 100%;
+}
+
+
+.res-w-45 {
+    max-width: 45rem;
+    width: 100%;
+}
+
+.res-w-50 {
+    max-width: 50rem;
+    width: 100%;
+}
+
 .debtn {
     background: none;
     border: none;
@@ -59,6 +81,7 @@
 .debtn:focus {
     outline: none;
 }
+
 
 .dplay-none {
     display: none;
@@ -74,4 +97,58 @@
 
 .shadow-2 {
     box-shadow: 0 5px 25px rgba(0,0,0,0.05), 0 10px 48px rgba(10,10,10,0.03), 0 1px 4px rgba(10,10,10,0.1);
+}
+
+.break {
+    flex-basis: 100%;
+}
+
+.underline-input {
+  background: none;
+  border: none;
+  border-bottom: 1px solid rgb(221,221,221);
+  width: 8em;
+  padding: 0.5em 0;
+  
+}
+
+.underline-input:focus {
+  outline:none;
+}
+
+.underline-date {
+  text-align: center;
+  border: none;
+  border-bottom: 1px solid rgb(221, 221, 221) ;
+  padding: 0.2em 1em;
+  background: none;
+  
+}
+
+.no-focus:focus {
+  outline: none;
+}
+
+.underline-div {
+  border: none;
+  border-bottom: 1px solid rgb(221,221,221);
+  padding: 0.5em;
+}
+
+.rounded-div {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    padding-left: 1em;
+    padding-right: 1em;
+    border-radius: 1em;
+}
+
+.clip-content {
+    background-clip: content-box;
+}
+
+.clip-padding {
+    background-clip: padding-box;
 }

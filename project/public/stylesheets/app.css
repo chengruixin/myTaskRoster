@@ -2,6 +2,7 @@
   font color: rgb(82,82,82);
   bg color : rgba(190, 189, 189, 0.911);
   active color : 
+  border color: rgb(221, 221, 221)
 */
 
 body {
@@ -101,17 +102,10 @@ body {
   padding-bottom: 0.5em;
   padding-left: 1em;
   padding-right: 1em;
-
   border-radius: 1em;
 }
 
-
-
-
-
 .task-unit {
-  border-radius: 1em;
-  border-radius: 1em;
   background-color: rgba(238, 237, 237, 0.815);
   margin-top: 0.5em;
   margin-bottom: 0.5em;
@@ -119,6 +113,7 @@ body {
   padding-bottom: 0.5em;
   padding-left: 1em;
   padding-right: 1em;
+  border-radius: 1em;
 }
 
 .task-new {
@@ -137,8 +132,173 @@ body {
 .colleague {
   width: 3em;
   height: 3em;
-  background-color: cadetblue;
+  background-color: rgb(236, 189, 189);
   display: inline-block;
   border-radius: 5em;
   
+}
+
+
+.colleague-lg {
+  width: 4em;
+  height: 4em;
+  background-color: rgb(108, 151, 111);
+  display: inline-block;
+  border-radius: 5em;
+  
+}
+
+
+.colleague-small {
+  width: 2em;
+  height: 2em;
+  background-color: rgb(219, 223, 197);
+  display: inline-block;
+  border-radius: 5em;
+  
+}
+
+
+
+.assignee-skill {
+  margin: 0.2em 0.5em;
+  border-radius: 0.4em;
+  padding: 0.2em 0.8em;
+  border: 1px solid rgb(210, 144, 236);
+  border-bottom: 3px solid rgb(140, 114, 151);
+  background-color: rgba(181, 182, 214, 0.925);
+  color: beige;
+  font-size: 0.8em;
+}
+  
+.assignee {
+  border-radius: 0.5em;
+  margin: 1em;
+  background-color: rgba(255, 200, 200, 0.849);
+}
+.clicked {
+  border: 3px solid cornflowerblue;
+  
+}
+.assignee-head {
+  border-top-left-radius: 0.5em;
+  border-top-right-radius: 0.5em;
+  background-color: rgba(233, 217, 217, 0.466);
+}
+
+.positive-mg {
+  margin-left: 0;
+  margin-right: 0;
+}
+.info-table {
+  border: 1px solid rgb(221, 221, 221);
+  padding-top: 1em;
+
+  border-radius: 0.4em;
+
+}
+
+.info-item {
+  border-top: 1px solid rgb(221, 221, 221);
+  padding: 1.3em 1em;
+}
+
+.info-item:hover {
+  background-color: rgba(221, 221, 221, 0.151);
+}
+
+/* people's preferred tasks */
+/*.preference {
+  border-radius: 1em;
+  border: 1px solid rgb(221, 221, 221);
+  padding: 0.2em 1em 0.2em 0.5em;
+}*/
+
+.preference {
+  display: flex;
+  margin: 0.5em;
+}
+.preference-tag {
+  border-top-left-radius: 1em;
+  border-bottom-left-radius: 1em;
+  border-left: 1px solid rgb(221, 221, 221);
+  border-top: 1px solid rgb(221, 221, 221);
+  border-bottom: 1px solid rgb(221, 221, 221);
+  padding: 0.16em 0.3em 0.16em 0.7em;
+}
+.preference-delete {
+  border: 1px solid rgb(221, 221, 221);
+  border-top-right-radius: 1em;
+  border-bottom-right-radius: 1em;
+  padding: 0.16em 0.6em;
+  background: none;
+}
+
+.preference-delete:focus {
+  outline: none;
+}
+.preference-new {
+  padding: 0 0.8em;
+  background: none;
+  border: 3px dashed rgb(221, 221, 221);
+  border-radius: 1em;
+  
+}
+
+.preference-new:focus {
+  outline: none;
+}
+
+
+.ava-switch-green {
+  padding: 0.3em 0.7em;
+  border-top-left-radius: 1em;
+  border-bottom-left-radius: 1em;
+
+  
+}
+
+.ava-switch-red {
+  padding: 0.3em 0.7em;
+  
+  border-top-right-radius: 1em;
+  border-bottom-right-radius: 1em;
+}
+
+.ava-switch-green:focus {
+  background-color : rgba(105, 182, 114, 0.74);
+}
+
+.ava-switch-red:focus {
+  background-color : rgba(199, 91, 85, 0.74);
+}
+
+
+.notification-new {
+  border: 3px dashed rgb(221, 221, 221);
+  padding: 0.5em 1em;
+  border-radius: 0.4em;
+}
+
+.notification-mess {
+  border: none;
+  background: none;
+  height: 5em;
+  border-radius: 1em;
+  padding: 0.5em 1em;
+  
+  
+}
+
+.notification-mess:focus {
+  outline: none;
+}
+
+.notification-delete {
+  background-color : rgba(190, 59, 59, 0.849);
+  height: 100%;
+  border-radius: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
