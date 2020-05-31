@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
 //schemas
 var people = ["mke", "jor", "fxdj", "unmon", "dfz", "fdcw", "fadex", "ofdww"];

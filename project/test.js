@@ -1,9 +1,9 @@
-var obj1 = {
-    name : "hello"
-}
+const mysql = require('mysql');
+const con = mysql.createConnection({
+    host : 'localhost'
+});
 
-var obj2 = new Object();
-
-obj2.name = obj1.name;
-obj1.name = "fasdf"
-console.log(obj2);
+con.connect( err => {
+    if(err) console.log(err);
+    else console.log("connected");
+})

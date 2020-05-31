@@ -249,22 +249,22 @@
 
                 <div class="expanded">
 
-                <div class="task-unit" v-for="(task,index) in item.tasks">{{task.name}}</div>
-            
-                <div class="task-unit">
-                    Description:
+                    <div class="task-unit" v-for="(task,index) in item.tasks">{{task.name}}</div>
+                
                     <div class="task-unit">
-                    {{item.description}}
+                        Description:
+                        <div class="task-unit">
+                        {{item.description}}
+                        </div>
                     </div>
-                </div>
 
-                <div class="task-unit">
-                    People involved
-                    <div class="colleagues">
-                    <span class="colleague" v-for="(person,index) in item.people">{{person.charAt(0).toUpperCase()}}</span>
+                    <div class="task-unit">
+                        People involved
+                        <div class="colleagues">
+                        <span class="colleague" v-for="(person,index) in item.people">{{person.charAt(0).toUpperCase()}}</span>
 
+                        </div>
                     </div>
-                </div>
 
                 </div>
 
