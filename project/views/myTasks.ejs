@@ -1,319 +1,341 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <!-- custom CSS -->
-    <link rel="stylesheet" href="/stylesheets/app.css">
-    <link rel="stylesheet" href="/stylesheets/color.css">
-    <link rel="stylesheet" href="/stylesheets/text.css">
-    <link rel="stylesheet" href="/stylesheets/style.css">
+  <!-- custom CSS -->
+  <link rel="stylesheet" href="/stylesheets/app.css">
+  <link rel="stylesheet" href="/stylesheets/color.css">
+  <link rel="stylesheet" href="/stylesheets/text.css">
+  <link rel="stylesheet" href="/stylesheets/style.css">
 
-    <!-- Vue.js -->
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <!-- Vue.js -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
-    <!-- Jquery -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    
-    <title>YouTask</title>
+  <!-- Jquery -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+
+  <title>YouTask</title>
 </head>
-<body>
-    <!-- Navigation bar -->
-    <nav class="d-flex navbar bg-light mb-4 shadow-2">
-      <div class="navbar-logo">
-        <a href="/" class="delink mx-3">
-          
-          YouTask
-        </a>
-      </div>
 
-      <div class="navbar-items flex-grow-1">
+<body>
+  <!-- Navigation bar -->
+    <nav class="d-flex navbar bg-light mb-4 shadow-2">
+    <div class="navbar-logo">
+        <a href="/" class="delink mx-3">
+
+        YouTask
+        </a>
+    </div>
+
+    <div class="navbar-items flex-grow-1">
         <a href="" class="delink mx-2 navbar-item">Tasks</a>
         <a href="/profile" class="delink mx-2 navbar-item">Profile</a>
         <a href="/email" class="delink mx-2 navbar-item">Emails</a>
-      </div>
+    </div>
 
-      <div class="navbar-ending">
+    <div class="navbar-ending">
         <!--<button class="navbar-btn navbar-btn-gray rounded-4 ">
-          Login
+            Login
         </button>
 
         <button class="navbar-btn navbar-btn-blue rounded-4">
             Signup
         </button>-->
         <span>Username</span>
-        <button class="navbar-btn navbar-btn-yellow rounded-4" >Log out</button>
+        <button class="navbar-btn navbar-btn-yellow rounded-4">Log out</button>
 
-      </div>
+    </div>
     </nav>
-    
+
     <main class="mx-4" id="main" v-cloak>
-      
-      <div class="row" >
 
-        <!-- This is for showing scheduled tasks -->
-        <div class="col-12 col-md-4 col-lg-3">
+        <div class="row">
 
-          <!-- Title -->
-          <h3 class="text-center">Scheduled tasks</h3>
+            <!-- This is for showing scheduled tasks -->
+            <div class="col-12 col-md-4 col-lg-3">
 
-          <!-- Grouped -->
-          <div class="task-box shadow-2" v-for="(item,index) in scheduledTask.grouped">
-            <div class="d-flex align-items-center ">
-              <span class="flex-grow-1">Group Task {{index}} </span>
+            <!-- Title -->
+            <h3 class="text-center">Scheduled tasks</h3>
 
-              <button class="debtn m-0 p-0 toShowContent dplay-none" @click="expandGroup" id="cool">
-                <svg class="bi bi-caret-down" width="1.8em" height="1.8em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" d="M3.204 5L8 10.481 12.796 5H3.204zm-.753.659l4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z"/>
-                </svg>
-              </button>
-              
-              <button class="debtn m-0 p-0 toHideContent" @click="expandGroup">
-                <svg class="bi bi-caret-up" width="1.8em" height="1.8em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" d="M3.204 11L8 5.519 12.796 11H3.204zm-.753-.659l4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659z"/>
-                </svg>
-              </button>
-              
-            </div>
-
-            <!-- Expansions -->
-            <div class="expanded">
-              
-              <!-- Sub Task -->
-              <div class="task-unit task-box shadow-2" >
-
-                <!-- Task head -->
+            <!-- Grouped -->
+            <div class="task-box shadow-2" v-for="(item,index) in scheduledTask.grouped">
                 <div class="d-flex align-items-center ">
-                  <span class="flex-grow-1">Individual Task {{index}}</span>
-    
-                  <button class="debtn m-0 p-0 toShowContent dplay-none" @click="expandTask" id="cool">
-                    <svg class="bi bi-caret-down" width="1.8em" height="1.8em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd" d="M3.204 5L8 10.481 12.796 5H3.204zm-.753.659l4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z"/>
+                <span class="flex-grow-1">Group Task {{index}} </span>
+
+                <button class="debtn m-0 p-0 toShowContent dplay-none" @click="expandGroup" id="cool">
+                    <svg class="bi bi-caret-down" width="1.8em" height="1.8em" viewBox="0 0 16 16" fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M3.204 5L8 10.481 12.796 5H3.204zm-.753.659l4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z" />
                     </svg>
-                  </button>
-                  
-                  <button class="debtn m-0 p-0 toHideContent" @click="expandTask">
-                    <svg class="bi bi-caret-up" width="1.8em" height="1.8em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd" d="M3.204 11L8 5.519 12.796 11H3.204zm-.753-.659l4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659z"/>
+                </button>
+
+                <button class="debtn m-0 p-0 toHideContent" @click="expandGroup">
+                    <svg class="bi bi-caret-up" width="1.8em" height="1.8em" viewBox="0 0 16 16" fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M3.204 11L8 5.519 12.796 11H3.204zm-.753-.659l4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659z" />
                     </svg>
-                  </button>
-                  
+                </button>
+
                 </div>
-                
-                <!-- Task body -->
+
+                <!-- Expansions -->
                 <div class="expanded">
-    
-                  <div class="task-unit">
+
+                <!-- Sub Task -->
+                <div class="task-unit task-box shadow-2">
+
+                    <!-- Task head -->
+                    <div class="d-flex align-items-center ">
+                    <span class="flex-grow-1">Individual Task {{index}}</span>
+
+                    <button class="debtn m-0 p-0 toShowContent dplay-none" @click="expandTask" id="cool">
+                        <svg class="bi bi-caret-down" width="1.8em" height="1.8em" viewBox="0 0 16 16" fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M3.204 5L8 10.481 12.796 5H3.204zm-.753.659l4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z" />
+                        </svg>
+                    </button>
+
+                    <button class="debtn m-0 p-0 toHideContent" @click="expandTask">
+                        <svg class="bi bi-caret-up" width="1.8em" height="1.8em" viewBox="0 0 16 16" fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M3.204 11L8 5.519 12.796 11H3.204zm-.753-.659l4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659z" />
+                        </svg>
+                    </button>
+
+                    </div>
+
+                    <!-- Task body -->
+                    <div class="expanded">
+
+                    <div class="task-unit">
+                        Description:
+                        <div class="task-unit">
+                        asd;lfkajskfl;jasd;lf
+                        </div>
+                    </div>
+
+
+
+
+                    </div>
+
+                </div>
+
+                <div class="task-unit">
                     Description:
                     <div class="task-unit">
-                      asd;lfkajskfl;jasd;lf
+                    asdfasdfasd
                     </div>
-                  </div>
-      
-      
-                  
-    
                 </div>
-                
-              </div>
-              
-              <div class="task-unit">
-                Description:
+
                 <div class="task-unit">
-                  asdfasdfasd
+                    People involved
+                    <div class="colleagues">
+                    <span class="colleague"></span>
+                    <span class="colleague"></span>
+                    <span class="colleague"></span>
+                    <span class="colleague"></span>
+                    </div>
                 </div>
-              </div>
 
-              <div class="task-unit">
-                People involved
-                <div class="colleagues">
-                  <span class="colleague"></span>
-                  <span class="colleague"></span>
-                  <span class="colleague"></span>
-                  <span class="colleague"></span>
                 </div>
-              </div>
+
+
 
             </div>
-            
 
+            <!-- Divider -->
+            <hr>
+            <p class="m-0">Un-grouped tasks:</p>
 
-          </div>
+            <!-- Ungrouped -->
+            <div class="task-unit task-box shadow-2" v-for="(item,index) in scheduledTask.ungrouped">
 
-          <!-- Divider -->
-          <hr><p class="m-0">Un-grouped tasks:</p>
+                <div class="d-flex align-items-center ">
+                <span class="flex-grow-1">Individual Task {{index}}</span>
 
-          <!-- Ungrouped -->
-          <div class="task-unit task-box shadow-2" v-for="(item,index) in scheduledTask.ungrouped">
+                <button class="debtn m-0 p-0 toShowContent dplay-none" @click="expandTask" id="cool">
+                    <svg class="bi bi-caret-down" width="1.8em" height="1.8em" viewBox="0 0 16 16" fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M3.204 5L8 10.481 12.796 5H3.204zm-.753.659l4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z" />
+                    </svg>
+                </button>
 
-            <div class="d-flex align-items-center ">
-              <span class="flex-grow-1">Individual Task {{index}}</span>
+                <button class="debtn m-0 p-0 toHideContent" @click="expandTask">
+                    <svg class="bi bi-caret-up" width="1.8em" height="1.8em" viewBox="0 0 16 16" fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M3.204 11L8 5.519 12.796 11H3.204zm-.753-.659l4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659z" />
+                    </svg>
+                </button>
 
-              <button class="debtn m-0 p-0 toShowContent dplay-none" @click="expandTask" id="cool">
-                <svg class="bi bi-caret-down" width="1.8em" height="1.8em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" d="M3.204 5L8 10.481 12.796 5H3.204zm-.753.659l4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z"/>
-                </svg>
-              </button>
-              
-              <button class="debtn m-0 p-0 toHideContent" @click="expandTask">
-                <svg class="bi bi-caret-up" width="1.8em" height="1.8em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" d="M3.204 11L8 5.519 12.796 11H3.204zm-.753-.659l4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659z"/>
-                </svg>
-              </button>
-              
-            </div>
+                </div>
 
-            <div class="expanded">
+                <div class="expanded">
 
-              <div class="task-unit">
-                Description:
                 <div class="task-unit">
-                  asd;lfkajskfl;jasd;lf
+                    Description:
+                    <div class="task-unit">
+                    asd;lfkajskfl;jasd;lf
+                    </div>
                 </div>
-              </div>
-  
-  
-              <div class="task-unit">
-                People involved
-                <div class="colleagues">
-                  <span class="colleague"></span>
-                  <span class="colleague"></span>
-                  <span class="colleague"></span>
-                  <span class="colleague"></span>
+
+
+                <div class="task-unit">
+                    People involved
+                    <div class="colleagues">
+                    <span class="colleague"></span>
+                    <span class="colleague"></span>
+                    <span class="colleague"></span>
+                    <span class="colleague"></span>
+                    </div>
                 </div>
-              </div>
+
+                </div>
 
             </div>
+            </div>
+
+            <!-- This is for showing today's tasks -->
+            <div class="col-12 col-md-8 col-lg-6">
+            <h3 class="text-center">Today's tasks</h3>
+
+            <!-- grouped tasks -->
+            <div class="task-box shadow-2" v-for="(item,index) in todayTask.grouped">
+                <div class="d-flex align-items-center ">
+                <span class="flex-grow-1">{{item.name}}</span>
+
+                <span class="mx-2" style="
+                    width: 2em;
+                    height: 2em;
+                    padding: 1em;
+                    border: 3px solid pink;
+                    border-radius: 5em;
+                    display: inline-block;
+                    "></span>
+
+                <button class="debtn m-0 p-0 toShowContent dplay-none" @click="expandGroup" id="cool">
+                    <svg class="bi bi-caret-down" width="1.8em" height="1.8em" viewBox="0 0 16 16" fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M3.204 5L8 10.481 12.796 5H3.204zm-.753.659l4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z" />
+                    </svg>
+                </button>
+
+                <button class="debtn m-0 p-0 toHideContent" @click="expandGroup">
+                    <svg class="bi bi-caret-up" width="1.8em" height="1.8em" viewBox="0 0 16 16" fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M3.204 11L8 5.519 12.796 11H3.204zm-.753-.659l4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659z" />
+                    </svg>
+                </button>
+
+                </div>
+
+                <div class="expanded">
+
+                <div class="task-unit" v-for="(task,index) in item.tasks">{{task.name}}</div>
             
-          </div>
+                <div class="task-unit">
+                    Description:
+                    <div class="task-unit">
+                    {{item.description}}
+                    </div>
+                </div>
+
+                <div class="task-unit">
+                    People involved
+                    <div class="colleagues">
+                    <span class="colleague" v-for="(person,index) in item.people">{{person.charAt(0).toUpperCase()}}</span>
+
+                    </div>
+                </div>
+
+                </div>
+
+
+
+            </div>
+
+            <!-- ungrouped -->
+            <div class="task-unit task-box shadow-2" v-for="(item,index) in todayTask.ungrouped">
+
+                <div class="d-flex align-items-center ">
+                <span class="flex-grow-1">{{item.name}}</span>
+
+                <button class="debtn m-0 p-0 toShowContent dplay-none" @click="expandTask" id="cool">
+                    <svg class="bi bi-caret-down" width="1.8em" height="1.8em" viewBox="0 0 16 16" fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M3.204 5L8 10.481 12.796 5H3.204zm-.753.659l4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z" />
+                    </svg>
+                </button>
+
+                <button class="debtn m-0 p-0 toHideContent" @click="expandTask">
+                    <svg class="bi bi-caret-up" width="1.8em" height="1.8em" viewBox="0 0 16 16" fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M3.204 11L8 5.519 12.796 11H3.204zm-.753-.659l4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659z" />
+                    </svg>
+                </button>
+
+                </div>
+
+                <div class="expanded">
+
+                <div class="task-unit">
+                    Description:
+                    <div class="task-unit text-wrap">
+                    {{ item.description }}
+                    </div>
+                </div>
+
+
+                <div class="task-unit">
+                    People involved
+                    <div class="colleagues">
+                    <span class="colleague" v-for="(person,index) in item.people">{{person.charAt(0).toUpperCase()}}</span>
+
+                    </div>
+                </div>
+
+                </div>
+
+            </div>
+
+
+
+            </div>
+
+            <!-- unused -->
+            <!--<div class="col-12 col-md-12 col-lg-4 test ">
+                Blank space unused...
+            </div>-->
+
         </div>
-
-        <!-- This is for showing today's tasks -->
-        <div class="col-12 col-md-8 col-lg-6">
-          <h3 class="text-center">Today's tasks</h3>
-
-          <!-- grouped tasks -->
-          <div class="task-box shadow-2" v-for="(item,index) in todayTask.grouped">
-            <div class="d-flex align-items-center ">
-              <span class="flex-grow-1">Group Task {{index}}</span>
-
-              <span class="mx-2"style="
-                width: 2em;
-                height: 2em;
-                padding: 1em;
-                border: 3px solid pink;
-                border-radius: 5em;
-                display: inline-block;
-              "></span>
-
-              <button class="debtn m-0 p-0 toShowContent dplay-none" @click="expandGroup" id="cool">
-                <svg class="bi bi-caret-down" width="1.8em" height="1.8em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" d="M3.204 5L8 10.481 12.796 5H3.204zm-.753.659l4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z"/>
-                </svg>
-              </button>
-              
-              <button class="debtn m-0 p-0 toHideContent" @click="expandGroup">
-                <svg class="bi bi-caret-up" width="1.8em" height="1.8em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" d="M3.204 11L8 5.519 12.796 11H3.204zm-.753-.659l4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659z"/>
-                </svg>
-              </button>
-              
-            </div>
-
-            <div class="expanded">
-
-              <div class="task-unit">Task-1</div>
-              <div class="task-unit">Task-2</div>
-              
-              <div class="task-unit">
-                Description:
-                <div class="task-unit">
-                  asd;lfkajskfl;jasd;lf
-                </div>
-              </div>
-
-              <div class="task-unit">
-                People involved
-                <div class="colleagues">
-                  <span class="colleague"></span>
-                  <span class="colleague"></span>
-                  <span class="colleague"></span>
-                  <span class="colleague"></span>
-                </div>
-              </div>
-
-            </div>
-            
-
-
-          </div>
-          
-          <!-- ungrouped -->
-          <div class="task-unit task-box shadow-2" v-for="(item,index) in todayTask.ungrouped">
-
-            <div class="d-flex align-items-center ">
-              <span class="flex-grow-1">Individual Task {{index}}</span>
-
-              <button class="debtn m-0 p-0 toShowContent dplay-none" @click="expandTask" id="cool">
-                <svg class="bi bi-caret-down" width="1.8em" height="1.8em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" d="M3.204 5L8 10.481 12.796 5H3.204zm-.753.659l4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z"/>
-                </svg>
-              </button>
-              
-              <button class="debtn m-0 p-0 toHideContent" @click="expandTask">
-                <svg class="bi bi-caret-up" width="1.8em" height="1.8em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" d="M3.204 11L8 5.519 12.796 11H3.204zm-.753-.659l4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659z"/>
-                </svg>
-              </button>
-              
-            </div>
-
-            <div class="expanded">
-
-              <div class="task-unit">
-                Description:
-                <div class="task-unit text-wrap">
-                  adsfasdfasdfasdfasdf;jasdlfkjaslfjas;lfjals;fjdalskdjfa;lsdfja;slfasdfasdfasdfadfs
-                </div>
-              </div>
-  
-  
-              <div class="task-unit">
-                People involved
-                <div class="colleagues">
-                  <span class="colleague"></span>
-                  <span class="colleague"></span>
-                  <span class="colleague"></span>
-                  <span class="colleague"></span>
-                </div>
-              </div>
-
-            </div>
-            
-          </div>
-
-         
-
-        </div>
-
-        <!-- unused -->
-        <!--<div class="col-12 col-md-12 col-lg-4 test ">
-          Blank space unused...
-        </div>-->
-
-      </div>
     </main>
-    
-    <script src="/javascripts/myTasks.js"></script>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <!--<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>-->
-    <!--<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>-->
-    <!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>-->
+
+  <script src="/javascripts/myTasks.js"></script>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <!--<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>-->
+  <!--<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>-->
+  <!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>-->
 </body>
+
 </html>

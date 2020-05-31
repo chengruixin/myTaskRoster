@@ -129,13 +129,16 @@ body {
   padding-right: 1em;
 
 }
+
+.colleagues {
+  display: flex;
+}
 .colleague {
-  width: 3em;
-  height: 3em;
-  background-color: rgb(236, 189, 189);
-  display: inline-block;
+
+  background-color: rgb(175, 101, 101);
+  padding: 1em 1.5em;
+  margin: 1em 0.5em;
   border-radius: 5em;
-  
 }
 
 

@@ -2,24 +2,17 @@ var main = new Vue({
     el: "#main",
     data : {
         scheduledTask : {
-            grouped: [1,2],
-            ungrouped : [2,3,4]
+            grouped: [],
+            ungrouped : []
         },
 
         todayTask : {
-            grouped: [1,4,3],
-            ungrouped : [1,2]
+            grouped: [],
+            ungrouped : []
         }
     },
     methods : {
-        //expand : function(e) {
-        //    const targetDom = e.target;
-        //    console.log($(targetDom).parents(".grouped").children(".expanded"));
-        //    $(targetDom).parents(".grouped").children(".expanded").toggle("d-none");
-        //    $(targetDom).parents(".grouped").children(".toHideContent").toggle("d-none");
-        //    $(targetDom).parents(".grouped").children(".toShowContent").toggle("d-none");
-        //    e.stopPropagation();
-        //},
+
 
         expandGroup : function(e){
             const targetDom = e.target;
@@ -39,6 +32,41 @@ var main = new Vue({
             $($(targetDom).parents(".task-unit")[0].querySelector(".toShowContent")).toggle("dplay-none");
             $($(targetDom).parents(".task-unit")[0].querySelector(".toHideContent")).toggle("dplay-none");
             e.stopPropagation();
+        },
+
+        getTasks : function(){
+            let xhttp = new XMLHttpRequest();
+            xhttp.open('GET', '/tasks', true);
+            xhttp.send();
+
+            let that = this;
+            xhttp.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                    let data = JSON.parse(this.responseText);
+                    console.log(data);
+                    that.todayTask.ungrouped = data;
+                }
+            }
+        },
+
+        getGroups : function() {
+            let xhttp = new XMLHttpRequest();
+            xhttp.open('GET', '/groups', true);
+            xhttp.send();
+
+            let that = this;
+            xhttp.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                    let data = JSON.parse(this.responseText);
+                    console.log(data);
+                    that.todayTask.grouped = data;
+                }
+            }
         }
+    },
+    beforeMount (){
+        console.log(this.scheduledTask.ungrouped);
+        this.getTasks();
+        this.getGroups();
     }
 })
