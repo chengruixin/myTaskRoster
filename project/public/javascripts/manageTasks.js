@@ -1,7 +1,8 @@
 var mainManage = new Vue({
     el: "#mainManage",
     data : {
-        tempArr: [1,2,3,3,2,32,3]
+        tempArr: [1,3],
+        tasks: []
     },
 
     methods : {
@@ -54,14 +55,48 @@ var mainManage = new Vue({
     components : {
         createTask : {
             template : "#createTask",
+
+            data : function (){
+                return {
+                    task_name : "",
+                    description : "",
+                    start : null,
+                    due: null
+                    
+                }
+            },
+
             methods : {
                 click : function(e){
                     $(e.target).parents(".task-new").children(".expanded").toggle("dplay-none");
-
-
                     e.stopPropagation();
+                },
+                create : async function(){
+                    let obj = {
+                        name : this.task_name,
+                        start : this.start,
+                        due : this.due,
+                        description : this.description
+
+                    }
+                    if(obj.name == "" || obj.description == "" || obj.start == "" || obj.due  == ""){
+                        console.log('rejected', "empty input");
+                    }
+                    else{
+                        console.log(obj);
+                        //send post reques
+                        const ajax = new Ajax();
+                        const result = await ajax.post('/dbTest/tasks/create', obj);
+                        console.log("received message", result);
+
+
+                        //refresh page
+                        this.$parent.tasks = await ajax.get('/tasks');
+                    }
+                    
                 }
             }
+
         },
 
         createGroup : {
@@ -69,12 +104,19 @@ var mainManage = new Vue({
             methods : {
                 click : function(e){
                     $(e.target).parents(".task-new").children(".expanded").toggle("dplay-none");
-
                     e.stopPropagation();
                 }
             }
         }
 
         
+    },
+
+    async beforeMount () {
+        console.log("hello");
+        //get tasks
+        const ajax = new Ajax();
+        this.tasks = await ajax.get('/tasks');
+        console.log(this.tasks);
     }
 })

@@ -30,5 +30,17 @@
 
         <input type="submit">
     </form>
+
+    <button onclick="perform()">click</button>
+
+
+    <script src="/javascripts/customs.js"></script>
+    <script>
+        async function perform(){
+            const ajax = new Ajax();
+            const result = await ajax.get('/tasks');
+            console.log(result);
+        }
+    </script>
 </body>
 </html>
