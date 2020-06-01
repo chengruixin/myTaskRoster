@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+const {query} = require('../models/dbConnect.js');
 //schemas
 var people = ["mke", "jor", "fxdj", "unmon", "dfz", "fdcw", "fadex", "ofdww"];
 var tasks = [{
@@ -55,30 +55,11 @@ router.get('/manageTasks', (req,res)=>{
     res.render('manageTasks.ejs');
 });
 
-router.get('/tasks', (req,res) =>{
-    let resObj = [];
+router.get('/tasks', async (req,res) =>{
 
-    tasks.forEach(task => {
-      if(task.isInGroup == null) {
-        let tempObj = {
-          name : task.name,
-          description : task.description,
-          start_date : task.start_date,
-          due_date : task.due_date,
-          people : []
-        }
-
-        task.people.forEach( person =>{
-          tempObj.people.push(people[person]);
-        })
-
-
-        resObj.push(tempObj);
-      };
-    });
-
-
-    res.json(resObj);
+    const results = await query("select * from Tasks");
+    console.log(results);
+    res.json(results);
 });
 
 router.get('/groups', (req,res)=>{
