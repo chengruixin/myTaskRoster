@@ -1,0 +1,20 @@
+# create
+INSERT INTO Persons VALUES ('Gates', 'Bill', 'Xuanwumen 10', 'Beijing')
+INSERT INTO Persons (LastName, Address) VALUES ('Wilson', 'Champs-Elysees')
+
+
+
+
+
+--------------------------------
+# Select rows that are not in other tables
+
+SELECT * FROM Students
+WHERE Id NOT IN (
+    SELECT Student_Id FROM Students_Groups
+    WHERE Group_Id = 1)
+
+
+# change table attributes
+
+alter table Tasks add primary key(_id)

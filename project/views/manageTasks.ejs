@@ -54,6 +54,8 @@
     </nav>
 
     <main class="container" id="mainManage" v-cloak>
+
+        <!-- Grouped tasks -->
         <h3 class="bder-bottom indent-2 py-2 ">Grouped Tasks:</h3>
         <div class="task-box shadow-2" >
         <div class="d-flex align-items-center ">
@@ -155,12 +157,12 @@
                     <span class="colleague m-1"></span>
                     <span class="colleague m-1"></span>
                     
-                    <button class=" debtn task-new color-orange m-1 rounded-4" @click.stop="addNewPeople">+</button>
+                    <button class=" debtn task-new color-orange m-1 rounded-4" >+</button>
 
                     <div class="task-unit break new-colleague">
 
                         <div class="row no-gutters">
-                            <div class="col-12 col-md-4 col-lg-3" v-for="item in tempArr">
+                            <div class="col-12 col-md-4 col-lg-3">
                             <div class="assignee " @click="highlight">
                                 <div class="assignee-head d-flex align-items-center px-2 py-1">
                                 <span class="flex-grow-1">Username</span>
@@ -198,6 +200,7 @@
         <create-group></create-group>
 
 
+        <!-- Inidividual tasks: -->
         <h3 class="bder-bottom indent-2 py-2 mt-5 ">Individual Tasks:</h3>
         <div class="task-unit  shadow-2 my-3" v-for="(task,index) in tasks">
             <div class="d-flex align-items-center ">
@@ -241,19 +244,19 @@
                 <div class="task-unit">
                     People involved
                     <div class="colleagues d-flex flex-wrap bg-silver p-2 rounded-4">
-                        <span class="colleague m-1"></span>
-                        <span class="colleague m-1"></span>
+                        
 
                         
-                        <button class=" debtn task-new color-orange m-1 rounded-4" @click.stop="addNewPeople">+</button>
+                        <button class=" debtn task-new color-orange m-1 rounded-4" @click.stop="addNewPeople(index, $event)">+</button>
     
-                        <div class="task-unit break new-colleague">
+                        <div class="task-unit break new-colleague dplay-none">
     
                             <div class="row no-gutters">
-                                <div class="col-12 col-md-4 col-lg-3" v-for="item in tempArr">
-                                    <div class="assignee " @click="highlight">
+                                
+                                <div class="col-12 col-md-4 col-lg-3" v-for="(user, i) in task.avaUsers">
+                                    <div class="assignee " @click="highlight($event, index, i)">
                                         <div class="assignee-head d-flex align-items-center px-2 py-1">
-                                        <span class="flex-grow-1">Username</span>
+                                        <span class="flex-grow-1">{{user.username}}</span>
                                         <span class="colleague-small"></span>
                                     </div>
         
@@ -262,18 +265,21 @@
                                         <span class="assignee-skill">Code</span>
                                         <span class="assignee-skill">Web</span>
                                         <span class="assignee-skill">Consult</span>
-                                        
                                         <span class="assignee-skill">UI design</span>
                                     </div>
                                     </div>
                                 </div>
-    
-                            
                                 
+                                <div class="col-12 d-flex justify-content-end" >
+                                    <button class="btn btn-primary mx-2 res-w-20" v-show="task.readyToAdd.length > 0" @click.stop="addUsersToTasks(index)">ADD USERS</button>
+                                </div>
+                                
+
                             </div>
-                        
+                            
+                            
+
                         </div>
-    
     
                     </div>
                 </div>

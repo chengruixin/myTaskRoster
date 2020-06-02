@@ -1,7 +1,6 @@
 var mainManage = new Vue({
     el: "#mainManage",
     data : {
-        tempArr: [1,3],
         tasks: []
     },
 
@@ -35,20 +34,45 @@ var mainManage = new Vue({
         },
 
 
-        addNewPeople : function(e) {
+        addNewPeople :async function(index, e) {
             const targetDom = $(e.target);
-            console.log(targetDom.parents(".colleagues").children(".new-colleague"));
-            targetDom.parents(".colleagues").children(".new-colleague").toggle("dplay-none");
-            
-            console.log("activedd");
-            //targetDom.parents(".colleagues").children(".new-colleague").css("display", "none");
-
+            targetDom.parents(".colleagues").children(".new-colleague").toggle("dplay-none");            
             e.stopPropagation();
         },
-        highlight : function(e){
-            //$(e.target).parents(".assignee").toggle("highlight");
-            console.log($(e.target).parents(".assignee")[0].classList.toggle("clicked"));
+        highlight : function(e, index, i){
+            try{        
+                const curTask = this.tasks[index];
+                const targetUser = this.tasks[index].avaUsers[i];
+
+                if(!curTask.hasOwnProperty('readyToAdd')){
+                    curTask.readyToAdd = [];
+                    console.log("unknown");
+                    console.log(curTask);
+                }
+
+                if($(e.target).parents(".assignee")[0].classList.toggle("clicked")){
+                    curTask.readyToAdd.push(targetUser._id);
+                }
+                else {
+                    curTask.readyToAdd = curTask.readyToAdd.filter( function(val, idx, arr){
+                        return val != targetUser._id;
+                    });
+                }
+
+                console.log(curTask.readyToAdd);
+            }
+            
+            catch(err){
+                console.log(err);
+            }
             e.stopPropagation();
+        },
+        addUsersToTasks : function(index){
+            console.log(this.tasks[index].readyToAdd);
+        },
+        refreshTasks : async function(){
+            const ajax = new Ajax();
+            this.tasks = await ajax.get('/tasks');
         }
     },
 
@@ -91,7 +115,7 @@ var mainManage = new Vue({
 
 
                         //refresh page
-                        this.$parent.tasks = await ajax.get('/tasks');
+                        this.$parent.refreshTasks();
                     }
                     
                 }
@@ -113,10 +137,7 @@ var mainManage = new Vue({
     },
 
     async beforeMount () {
-        console.log("hello");
         //get tasks
-        const ajax = new Ajax();
-        this.tasks = await ajax.get('/tasks');
-        console.log(this.tasks);
+        this.refreshTasks()
     }
 })

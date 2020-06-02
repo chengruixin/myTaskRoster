@@ -59,6 +59,12 @@ router.get('/tasks', async (req,res) =>{
 
     const results = await query("select * from Tasks");
     console.log(results);
+
+    
+    for( result of results){
+        result.avaUsers = await query("SELECT * FROM Users"); 
+        result.readyToAdd = [];
+    }
     res.json(results);
 });
 

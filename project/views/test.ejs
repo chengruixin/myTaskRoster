@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
 </head>
 <body>
     <form action="/dbTest/tasks/create" method="POST">
@@ -35,12 +38,57 @@
 
 
     <script src="/javascripts/customs.js"></script>
+
+
+    <hr>
+
+
+    <div id="test">
+        <hr>
+        <div style="border: 1px solid black;" v-for="(item,index) in arr">
+            {{item.name}}
+            <div v-for="(da,i) in item.data">{{da}}</div>
+            
+            <button @click="add(index)">add</button>
+            <button @click="clear(index)">clear</button>
+        </div>
+        <hr>
+        
+    </div>
     <script>
         async function perform(){
             const ajax = new Ajax();
             const result = await ajax.get('/tasks');
             console.log(result);
         }
+
+        var test = new Vue({
+            el: "#test",
+            data : {
+                arr : [{
+                    name : "num1",
+                    data : [1,2,3]
+                },{
+                    name : "num2",
+                    data : [1,2,3]
+                },{
+                    name : "num2",
+                    data : [1,2,3]
+                }],
+                serverData : [8,9]
+            },
+
+            methods : {
+                add : function(index){
+                    for( da of this.serverData){
+                        this.arr[index].data.push(da);
+                    }
+                },
+                clear : function(index){
+                    this.arr[index].data = [];
+                }
+            }
+        })
     </script>
 </body>
 </html>
