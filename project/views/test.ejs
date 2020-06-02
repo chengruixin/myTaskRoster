@@ -54,6 +54,8 @@
         </div>
         <hr>
         
+        <hr>
+        <button @click="getTask">ask for task</button>
     </div>
     <script>
         async function perform(){
@@ -86,6 +88,10 @@
                 },
                 clear : function(index){
                     this.arr[index].data = [];
+                },
+                getTask : async function(){
+                    const ajax = new Ajax();
+                    console.log(await ajax.get('/tasks/4'));
                 }
             }
         })

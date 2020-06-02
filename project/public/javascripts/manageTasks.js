@@ -67,7 +67,7 @@ var mainManage = new Vue({
             }
             e.stopPropagation();
         },
-        addUsersToTasks : async function(index){
+        addUsersToTasks : async function(index, event){
             const taskId = this.tasks[index]._id;
             const selectedUsers = this.tasks[index].readyToAdd;
             console.log("Task id" , taskId);
@@ -78,13 +78,34 @@ var mainManage = new Vue({
                 usersId : selectedUsers
             }).then(data => {
                 console.log(data);
-                this.refreshTasks();
+
+                //refresh this task data
+                this.refreshTaskById(taskId, index);
+
+                //remove blue borders for all avaUsers
+                $(event.target).parents(".new-colleague").children(".row").children(".assignee.clicked").toggleClass("clicked")
+                
             });
+
+            ///*
+            //    Tesinng....
+            //*/
+
+            
         },
         refreshTasks : async function(){
             const ajax = new Ajax();
             this.tasks = await ajax.get('/tasks');
             console.log(this.tasks);
+        },
+
+        refreshTaskById : async function(taskId, index){
+            const ajax = new Ajax();
+            const newTask = await ajax.get(`/tasks/${taskId}`);
+            
+            //use splice to refresh( delete and then add new) this specific task
+            this.tasks.splice(index, 1, newTask);
+            console.log(this.tasks[index]);
         }
     },
 

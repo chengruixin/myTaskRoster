@@ -44,6 +44,39 @@ router.post('/create', async (req,res) => {
     }
 });
 
+router.get('/:taskId', async (req, res)=> {
+    try{
+        const task = await query(`select * from Tasks WHERE _id = ${req.params.taskId}`);
+        
+        console.log(task[0]);
+        if(task) {
+            task[0].assignees = await query(`SELECT Users.username, Users._id FROM Users \
+                                            INNER JOIN Users_Tasks \   
+                                            ON Users._id = Users_Tasks.user_id \
+                                            INNER JOIN Tasks \
+                                            ON Users_Tasks.task_id = Tasks._id \
+                                            WHERE Tasks._id = ${task[0]._id}`);
+            
+            task[0].avaUsers = await query(`select Users._id, Users.username from Users \
+                                                where Users._id not in (\
+                                                    SELECT Users._id FROM Users \
+                                                    INNER JOIN Users_Tasks  ON Users._id = Users_Tasks.user_id  \
+                                                    INNER JOIN Tasks ON Users_Tasks.task_id = Tasks._id \
+                                                    WHERE Tasks._id = ${task[0]._id} )`); 
+            
+            task[0].readyToAdd = [];
+            
+            res.json(task[0]);
+        }
+    }
+    
+    catch(err){
+        console.log(err);
+        res.sendStatus(500);
+    }
+    
+    
+});
 router.post('/:taskId/addUser',async (req, res) => {
     try {
         const {usersId} = req.body;

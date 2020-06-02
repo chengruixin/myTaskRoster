@@ -45,6 +45,7 @@ var main = new Vue({
                     let data = JSON.parse(this.responseText);
                     console.log(data);
                     that.todayTask.ungrouped = data;
+                    console.log(that.todayTask.ungrouped);
                 }
             }
         },

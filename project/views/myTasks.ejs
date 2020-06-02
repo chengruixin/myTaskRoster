@@ -312,7 +312,8 @@
                 <div class="task-unit">
                     People involved
                     <div class="colleagues">
-                    <span class="colleague" v-for="(person,index) in item.people">{{person.charAt(0).toUpperCase()}}</span>
+                        <span class="colleague" v-for="(person,index) in item.assignees">{{person.username}}</span>
+                        <!--<span class="colleague" v-for="(person,index) in item.assignees">{{person.username.charAt(0).toUpperCase()}}</span>-->
 
                     </div>
                 </div>

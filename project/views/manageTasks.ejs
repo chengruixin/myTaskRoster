@@ -253,25 +253,26 @@
     
                             <div class="row no-gutters">
                                 
-                                <div class="col-12 col-md-4 col-lg-3" v-for="(user, i) in task.avaUsers">
-                                    <div class="assignee " @click="highlight($event, index, i)">
+                                <div class="col-12 col-md-4 col-lg-3 assignee" v-for="(user, i) in task.avaUsers">
+                                    <div @click="highlight($event, index, i)">
+                                        
                                         <div class="assignee-head d-flex align-items-center px-2 py-1">
-                                        <span class="flex-grow-1">{{user.username}}</span>
-                                        <span class="colleague-small"></span>
-                                    </div>
-        
-                                    <div class="assignee-body d-flex flex-wrap">
-                                        <span class="assignee-skill">Hosting</span>
-                                        <span class="assignee-skill">Code</span>
-                                        <span class="assignee-skill">Web</span>
-                                        <span class="assignee-skill">Consult</span>
-                                        <span class="assignee-skill">UI design</span>
-                                    </div>
+                                            <span class="flex-grow-1">{{user.username}}</span>
+                                            <span class="colleague-small"></span>
+                                        </div>
+            
+                                        <div class="assignee-body d-flex flex-wrap">
+                                            <span class="assignee-skill">Hosting</span>
+                                            <span class="assignee-skill">Code</span>
+                                            <span class="assignee-skill">Web</span>
+                                            <span class="assignee-skill">Consult</span>
+                                            <span class="assignee-skill">UI design</span>
+                                        </div>
                                     </div>
                                 </div>
                                 
                                 <div class="col-12 d-flex justify-content-end" >
-                                    <button class="btn btn-primary mx-2 res-w-20" v-show="task.readyToAdd.length > 0" @click.stop="addUsersToTasks(index)">ADD USERS</button>
+                                    <button class="btn btn-primary mx-2 res-w-20" v-show="task.readyToAdd.length > 0" @click.stop="addUsersToTasks(index, $event)">ADD USERS</button>
                                 </div>
                                 
 
