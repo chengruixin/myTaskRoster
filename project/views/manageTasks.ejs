@@ -245,7 +245,7 @@
                     People involved
                     <div class="colleagues d-flex flex-wrap bg-silver p-2 rounded-4">
                         
-
+                        <span class="colleague" v-for="(assignee, assignee_idx) in task.assignees ">{{assignee.username}}</span>
                         
                         <button class=" debtn task-new color-orange m-1 rounded-4" @click.stop="addNewPeople(index, $event)">+</button>
     

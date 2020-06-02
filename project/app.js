@@ -8,6 +8,7 @@ const {dbConnect} = require('./models/dbConnect.js');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const dbTestRouter = require('./routes/dbTest');
+const tasksRouter = require('./routes/tasks');
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/tasks', tasksRouter);
 app.use('/dbTest', dbTestRouter);
 
 module.exports = app;

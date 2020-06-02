@@ -12,19 +12,7 @@ router.get('/', async function(req, res) {
     res.render('test.ejs');
 });
 
-router.post('/tasks/create', async function(req,res){
-    try{
-        let obj = req.body;
-        console.log(obj);
-        const sql = "insert into Tasks (name, description, start, due) values (?,?,?,?)"
-        const result = await query(sql, [obj.name, obj.description, obj.start, obj.due]);
-        console.log(result);
-        res.send(result);
-    }
-    catch(err){
-        res.status(500).send(err);
-    }
-})
+
 
 router.get('/tasks', async (req,res)=>{
     try{

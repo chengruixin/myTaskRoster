@@ -67,12 +67,24 @@ var mainManage = new Vue({
             }
             e.stopPropagation();
         },
-        addUsersToTasks : function(index){
-            console.log(this.tasks[index].readyToAdd);
+        addUsersToTasks : async function(index){
+            const taskId = this.tasks[index]._id;
+            const selectedUsers = this.tasks[index].readyToAdd;
+            console.log("Task id" , taskId);
+            console.log(selectedUsers);
+
+            const ajax = new Ajax();
+            await ajax.post(`/tasks/${taskId}/addUser`, {
+                usersId : selectedUsers
+            }).then(data => {
+                console.log(data);
+                this.refreshTasks();
+            });
         },
         refreshTasks : async function(){
             const ajax = new Ajax();
             this.tasks = await ajax.get('/tasks');
+            console.log(this.tasks);
         }
     },
 
@@ -138,6 +150,7 @@ var mainManage = new Vue({
 
     async beforeMount () {
         //get tasks
-        this.refreshTasks()
+        this.refreshTasks();
+        
     }
 })

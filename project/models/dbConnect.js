@@ -12,7 +12,7 @@ const dbName = "YouTask_1";
 const createUsersTable = "CREATE TABLE Users( _id INT NOT NULL AUTO_INCREMENT, username VARCHAR(256), PRIMARY KEY(_id) )";
 const createTasksTable = "create table Tasks( _id INT NOT NULL AUTO_INCREMENT, name varchar(256), description varchar(1024), start date, due date, primary key(_id) )";
 const createGroupsTable = "CREATE TABLE Groups(_id INT NOT NULL AUTO_INCREMENT, task_id INT, name varchar(256), description varchar(1024) , start date, due date, primary key(_id), foreign key(task_id) references Tasks(_id) )"
-
+const createUsers_TasksTable = "CREATE TABLE Users_Tasks (user_id INT, task_id INT, FOREIGN KEY(user_id) REFERENCES Users(_id), FOREIGN KEY (task_id) REFERENCES Tasks(_id) )";
 function query(sql, values) {
     return new Promise((resolve, reject) => {
         con.getConnection( function(err, connection){
@@ -68,7 +68,7 @@ async function dbConnect(){
         //Use dbName db
         await query("USE ??" , dbName);
 
-        //Create tables Tasks, Users and Groups for dbName if DONT HAVE
+        //Create tables Tasks, Users , Tasks_Users and Groups for dbName if DONT HAVE
         const tables = await query("show tables");
         
         if(!hasTable(tables, "Users", dbName)){
@@ -86,6 +86,10 @@ async function dbConnect(){
             await query(createGroupsTable);
             console.log("Create Groups table");
 
+        }
+        if(!hasTable(tables, "Users_Tasks", dbName)){
+            await query(createUsers_TasksTable);
+            console.log("Create Users_Tasks table");
         }
         
         console.log("Connected to " + dbName);
