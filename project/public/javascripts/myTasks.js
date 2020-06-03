@@ -34,40 +34,21 @@ var main = new Vue({
             e.stopPropagation();
         },
 
-        getTasks : function(){
-            let xhttp = new XMLHttpRequest();
-            xhttp.open('GET', '/tasks', true);
-            xhttp.send();
-
-            let that = this;
-            xhttp.onreadystatechange = function(){
-                if(this.readyState == 4 && this.status == 200){
-                    let data = JSON.parse(this.responseText);
-                    console.log(data);
-                    that.todayTask.ungrouped = data;
-                    console.log(that.todayTask.ungrouped);
-                }
-            }
+        getTasks : async function(){
+            const ajax = new Ajax();
+            this.todayTask.ungrouped = await ajax.get('/tasks');
+            console.log("Tasks mess:\n", this.todayTask);
         },
 
-        getGroups : function() {
-            let xhttp = new XMLHttpRequest();
-            xhttp.open('GET', '/groups', true);
-            xhttp.send();
+        getGroups : async function() {
+            const ajax = new Ajax();
+            this.todayTask.grouped = await ajax.get('/groups');
+            console.log("Tasks mess:\n", this.todayTask);
 
-            let that = this;
-            xhttp.onreadystatechange = function(){
-                if(this.readyState == 4 && this.status == 200){
-                    let data = JSON.parse(this.responseText);
-                    console.log(data);
-                    that.todayTask.grouped = data;
-                }
-            }
         }
     },
-    beforeMount (){
-        console.log(this.scheduledTask.ungrouped);
-        this.getTasks();
-        this.getGroups();
+    async beforeMount (){
+        await this.getGroups();
+        await this.getTasks();
     }
 })

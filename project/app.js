@@ -7,9 +7,9 @@ const {dbConnect} = require('./models/dbConnect.js');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const dbTestRouter = require('./routes/dbTest');
+const testRouter = require('./routes/test');
 const tasksRouter = require('./routes/tasks');
-
+const groupsRouter = require('./routes/groups');
 const app = express();
 
 //connect to db
@@ -27,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/tasks', tasksRouter);
-app.use('/dbTest', dbTestRouter);
+app.use('/groups', groupsRouter);
+app.use('/test', testRouter);
 
 module.exports = app;

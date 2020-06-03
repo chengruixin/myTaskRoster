@@ -8,6 +8,8 @@ SELECT Users.username, Users._id FROM Users INNER JOIN Users_Tasks  ON Users._id
 #select users not from a task 
 select Users._id, Users.username from Users where Users._id not in (  SELECT Users._id FROM Users INNER JOIN Users_Tasks  ON Users._id = Users_Tasks.user_id  INNER JOIN Tasks ON Users_Tasks.task_id = Tasks._id WHERE Tasks._id = 6 );
 
+
+
 --------------------------------
 # Select rows that are not in other tables
 

@@ -56,6 +56,12 @@
         
         <hr>
         <button @click="getTask">ask for task</button>
+
+        <hr>
+
+        <button @click="click">noparam</button>
+        <button @click="click($event)">hasparam</button>
+
     </div>
     <script>
         async function perform(){
@@ -92,6 +98,14 @@
                 getTask : async function(){
                     const ajax = new Ajax();
                     console.log(await ajax.get('/tasks/4'));
+                },
+                click : function(e){
+                    if(e){
+                        console.log(e.target);
+                    }
+                    else{
+                        console.log("no params");
+                    }
                 }
             }
         })

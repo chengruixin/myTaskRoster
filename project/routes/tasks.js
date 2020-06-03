@@ -4,8 +4,10 @@ const {query} = require('../models/dbConnect.js');
 const router = express.Router();
 
 /* GET users listing. */
+
+//this route currently only get tasks that are not in group
 router.get('/', async (req, res) => {
-    const results = await query("select * from Tasks");
+    const results = await query(`select * from Tasks where group_id is null`);
     console.log(results);
 
     for( result of results){
@@ -32,14 +34,16 @@ router.get('/', async (req, res) => {
 
 router.post('/create', async (req,res) => {
     try{
+        console.log("\nPOST request to /tasks/create");
         let obj = req.body;
         console.log(obj);
-        const sql = "insert into Tasks (name, description, start, due) values (?,?,?,?)"
-        const result = await query(sql, [obj.name, obj.description, obj.start, obj.due]);
+        const sql = "insert into Tasks (name, description, start, due, group_id) values (?,?,?,?,?)"
+        const result = await query(sql, [obj.name, obj.description, obj.start, obj.due, obj.group_id]);
         console.log(result);
         res.send(result);
     }
     catch(err){
+        console.log(err);
         res.status(500).send(err);
     }
 });
@@ -67,6 +71,9 @@ router.get('/:taskId', async (req, res)=> {
             task[0].readyToAdd = [];
             
             res.json(task[0]);
+        }
+        else {
+            res.status(400).send('Task not found');
         }
     }
     

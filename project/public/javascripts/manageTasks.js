@@ -1,7 +1,8 @@
 var mainManage = new Vue({
     el: "#mainManage",
     data : {
-        tasks: []
+        tasks: [],
+        groups : []
     },
 
     methods : {
@@ -40,7 +41,8 @@ var mainManage = new Vue({
             e.stopPropagation();
         },
         highlight : function(e, index, i){
-            try{        
+            try{     
+                console.log(this.tasks[index]);   
                 const curTask = this.tasks[index];
                 const targetUser = this.tasks[index].avaUsers[i];
 
@@ -67,7 +69,7 @@ var mainManage = new Vue({
             }
             e.stopPropagation();
         },
-        addUsersToTasks : async function(index, event){
+        addUsersToTask : async function(index, event){
             const taskId = this.tasks[index]._id;
             const selectedUsers = this.tasks[index].readyToAdd;
             console.log("Task id" , taskId);
@@ -96,7 +98,7 @@ var mainManage = new Vue({
         refreshTasks : async function(){
             const ajax = new Ajax();
             this.tasks = await ajax.get('/tasks');
-            console.log(this.tasks);
+            console.log("Tasks mess:\n", this.tasks);
         },
 
         refreshTaskById : async function(taskId, index){
@@ -106,19 +108,36 @@ var mainManage = new Vue({
             //use splice to refresh( delete and then add new) this specific task
             this.tasks.splice(index, 1, newTask);
             console.log(this.tasks[index]);
+        },
+
+        getTaskById : async function(taskId) {
+            const ajax = new Ajax();
+            const task = await ajax.get(`/tasks/${taskId}`);
+            return task;
+        },
+
+        refreshGrops : async function(){
+            const ajax = new Ajax();
+            this.groups = await ajax.get('/groups');
+            console.log("Groups mess: \n", this.groups);
         }
     },
 
     components : {
         createTask : {
             template : "#createTask",
-
+            props: {
+                index:Number, //group index
+                id : Number    //group id
+            },
             data : function (){
                 return {
                     task_name : "",
                     description : "",
                     start : null,
-                    due: null
+                    due: null,
+                    groupIdx: this.index,  //this is showing group index in html page
+                    groupKey : this.id //this is showing group id in data
                     
                 }
             },
@@ -133,6 +152,67 @@ var mainManage = new Vue({
                         name : this.task_name,
                         start : this.start,
                         due : this.due,
+                        description : this.description,
+                        group_id : this.groupKey
+                    }
+                    if(obj.name == "" || obj.description == "" || obj.start == "" || obj.due  == ""){
+                        console.log('rejected', "empty input\n", this.groupIdx, this.groupKey);
+                    }
+                    else{
+                        console.log(obj);
+                        //send post reques
+                        const ajax = new Ajax();
+                        const result = await ajax.post('/tasks/create', obj);
+                        console.log("received message", result);
+
+
+                        //refresh page
+                        
+                        if(this.groupIdx === -1){
+                            const newTask = await ajax.get(`/tasks/${result.insertId}`);
+                            this.$parent.tasks.push(newTask);
+                            console.log("add to ", -1);
+                            
+                        }
+                        else{
+                            const newTask = await ajax.get(`/tasks/${result.insertId}`);
+                            this.$parent.groups[this.groupIdx].tasks.push(newTask);
+                            console.log("add to group");
+                        }
+                        this.task_name = "";
+                        this.description = "";
+                        this.start = null;
+                        this.due = null;
+                        
+                    }
+                    
+                }
+            }
+
+        },
+
+        createGroup : {
+            template : "#createGroup",
+            data : function(){
+                return {
+                    name : "",
+                    description : "",
+                    start : "",
+                    due : ""
+                }
+            },
+            methods : {
+                click : function(e){
+                    $(e.target).parents(".task-new").children(".expanded").toggle();
+                    
+                    e.stopPropagation();
+                },
+
+                addNewGroup : async function(){
+                    let obj = {
+                        name : this.name,
+                        start : this.start,
+                        due : this.due,
                         description : this.description
 
                     }
@@ -143,25 +223,20 @@ var mainManage = new Vue({
                         console.log(obj);
                         //send post reques
                         const ajax = new Ajax();
-                        const result = await ajax.post('/dbTest/tasks/create', obj);
-                        console.log("received message", result);
+                        const invoice = await ajax.post('/groups/create', obj);
+                        console.log("received message", invoice);
 
 
                         //refresh page
-                        this.$parent.refreshTasks();
+                        
+                        const newGroup = await ajax.get(`/groups/${invoice.insertId}`);
+            
+                        this.$parent.groups.push(newGroup);
+                        this.name = "";
+                        this.description = "";
+                        this.start = null;
+                        this.due = null;
                     }
-                    
-                }
-            }
-
-        },
-
-        createGroup : {
-            template : "#createGroup",
-            methods : {
-                click : function(e){
-                    $(e.target).parents(".task-new").children(".expanded").toggle("dplay-none");
-                    e.stopPropagation();
                 }
             }
         }
@@ -170,8 +245,10 @@ var mainManage = new Vue({
     },
 
     async beforeMount () {
-        //get tasks
-        this.refreshTasks();
-        
+        //get groups
+        await this.refreshGrops();
+
+        ////get tasks
+        await this.refreshTasks();
     }
 })

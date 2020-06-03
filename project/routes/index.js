@@ -57,47 +57,6 @@ router.get('/manageTasks', (req,res)=>{
 
 
 
-router.get('/groups', (req,res)=>{
-    let resObj = [];
-
-    groups.forEach( group => {
-        console.log(group);
-        let tempObj = {
-            name : group.name,
-            tasks : [],
-            description : group.description,
-            start_date : group.start_date,
-            due_date : group.due_date,
-            people : []
-        };
-
-        //propogate tasks
-        group.tasks.forEach( i => {
-
-            let tempTask = {
-                name : tasks[i].name,
-                description : tasks[i].description,
-                start_date : tasks[i].start_date,
-                due_date : tasks[i].due_date,
-                people : []
-            }
-
-            tasks[i].people.forEach( person => {
-                tempTask.people.push(people[person]);
-            })
-            tempObj.tasks.push(tempTask);
-
-
-            tasks[i].people.forEach( j => {
-                tempObj.people.push(people[j]);
-            });
-        });
-
-        resObj.push(tempObj);
-    })
-
-    res.json(resObj);
-})
 router.get('/profile', (req,res)=>{
     res.render('profile.ejs');
 });
