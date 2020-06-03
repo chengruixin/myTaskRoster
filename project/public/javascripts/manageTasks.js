@@ -41,10 +41,44 @@ var mainManage = new Vue({
             e.stopPropagation();
         },
         highlight : function(e, index, i){
-            try{     
+            try{
+                console.log($(e.target).parents(".assignee"));     
                 console.log(this.tasks[index]);   
                 const curTask = this.tasks[index];
                 const targetUser = this.tasks[index].avaUsers[i];
+
+                if(!curTask.hasOwnProperty('readyToAdd')){
+                    curTask.readyToAdd = [];
+                    console.log("unknown");
+                    console.log(curTask);
+                }
+
+                if($(e.target).parents(".assignee")[0].classList.toggle("clicked")){
+                    curTask.readyToAdd.push(targetUser._id);
+                }
+                else {
+                    curTask.readyToAdd = curTask.readyToAdd.filter( function(val, idx, arr){
+                        return val != targetUser._id;
+                    });
+                }
+
+                console.log(curTask.readyToAdd);
+            }
+            
+            catch(err){
+                console.log(err);
+            }
+            e.stopPropagation();
+        },
+        highlightInGroup : function(e, groupIdx, taskIdx, i){
+            try{
+                console.log($(e.target).parents(".assignee"));     
+                  
+                const curTask = this.groups[groupIdx].tasks[taskIdx]
+                const targetUser = curTask.avaUsers[i];
+
+                console.log(curTask); 
+                console.log(targetUser);
 
                 if(!curTask.hasOwnProperty('readyToAdd')){
                     curTask.readyToAdd = [];
@@ -95,6 +129,36 @@ var mainManage = new Vue({
 
             
         },
+
+        addUsersToTaskInGroup : async function(groupIdx, taskIndex, event){
+            const task = this.groups[groupIdx].tasks[taskIndex];
+            const taskId = task._id;
+            const selectedUsers = task.readyToAdd;
+            console.log("Task id" , taskId, groupIdx);
+            console.log(selectedUsers);
+
+            const ajax = new Ajax();
+            await ajax.post(`/tasks/${taskId}/addUser`, {
+                usersId : selectedUsers
+            }).then(async data => {
+                console.log(data);
+
+                //refresh this task data
+                const newTask = await ajax.get(`/tasks/${taskId}`);
+                this.groups[groupIdx].tasks.splice(taskIndex, 1, newTask);
+                //remove blue borders for all avaUsers
+                $(event.target).parents(".new-colleague").children(".row").children(".assignee.clicked").toggleClass("clicked")
+                
+            });
+
+            ///*
+            //    Tesinng....
+            //*/
+
+            
+        },
+
+
         refreshTasks : async function(){
             const ajax = new Ajax();
             this.tasks = await ajax.get('/tasks');

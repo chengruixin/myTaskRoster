@@ -90,12 +90,10 @@
 
             <div class="expanded">
 
-                <!--<div class="task-unit">Task-1</div>
-                <div class="task-unit">Task-2</div>-->
                 <div class="task-unit  shadow-2 my-3" v-for="(task, taskIdx) in group.tasks">
                     <div class="d-flex align-items-center ">
                         <span class="flex-grow-1 text-5">{{task.name}}</span>
-
+        
                         <!-- Show start date and due date -->
                         <span class="mx-3">Start: <span class="color-deep">{{new Date(task.start).toLocaleDateString()}}</span> </span>
                         <span class="mx-3">Due:  <span class="color-deep">{{new Date(task.due).toLocaleDateString()}}</span></span>
@@ -107,7 +105,7 @@
                         border-radius: 5em;
                         display: inline-block;
                         "></span>
-
+        
                         <button class="debtn m-0 p-0 toShowContent dplay-none" @click="expandTask" id="cool">
                         <svg class="bi bi-caret-down" width="1.8em" height="1.8em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M3.204 5L8 10.481 12.796 5H3.204zm-.753.659l4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z"/>
@@ -121,16 +119,18 @@
                         </button>
                         
                     </div>
-
+        
                     <div class="expanded">
-
+        
+                        <!-- Description -->
                         <div class="task-unit">
                         Description:
-                            <div class="task-unit">
-                                {{task.description}}
-                            </div>
+                        <div class="task-unit">
+                            {{task.description}}
                         </div>
-
+                        </div>
+        
+                        <!-- Involved People -->
                         <div class="task-unit">
                             People involved
                             <div class="colleagues d-flex flex-wrap bg-silver p-2 rounded-4">
@@ -144,7 +144,7 @@
                                     <div class="row no-gutters">
                                         
                                         <div class="col-12 col-md-4 col-lg-3 assignee" v-for="(user, i) in task.avaUsers">
-                                            <div @click="highlight($event, taskIdx, i)">
+                                            <div @click="highlightInGroup($event, groupIdx, taskIdx, i)">
                                                 
                                                 <div class="assignee-head d-flex align-items-center px-2 py-1">
                                                     <span class="flex-grow-1">{{user.username}}</span>
@@ -162,7 +162,7 @@
                                         </div>
                                         
                                         <div class="col-12 d-flex justify-content-end" >
-                                            <button class="btn btn-primary mx-2 res-w-20" v-show="task.readyToAdd.length > 0" @click.stop="addUsersToTask(taskIdx, $event)">ADD USERS</button>
+                                            <button class="btn btn-primary mx-2 res-w-20" v-show="task.readyToAdd.length > 0" @click.stop="addUsersToTaskInGroup(groupIdx, taskIdx, $event)">ADD USERS</button>
                                         </div>
                                         
         
@@ -174,8 +174,7 @@
             
                             </div>
                         </div>
-                        
-
+        
                     </div>
                 </div>
                 
@@ -190,9 +189,11 @@
                 </div>
 
                 <div class="task-unit">
-                    People involved
+                    Total People involved
                     <div class="colleagues d-flex flex-wrap bg-silver p-2 rounded-4">
-                        <span class="colleague m-1">no people added yet</span>
+                        <span v-for="(tkags, taIdx) in group.tasks" class="d-flex flex-wrap">
+                            <span class="colleague m-1" v-for="(ags, agIdx) in tkags.assignees">{{ags.username}}</span>
+                        </span>
                         
                         
                         
