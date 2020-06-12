@@ -1,10 +1,14 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const {query} = require('../models/dbConnect.js');
+
+const router = express.Router();
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+router.get('/', async (req, res) => {
+    const sqlResult = await query("SELECT * FROM Users"); 
+    console.log(sqlResult);
+    res.json(sqlResult);
 });
 
-router.get('/secret',)
+
 module.exports = router;

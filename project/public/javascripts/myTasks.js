@@ -2,24 +2,17 @@ var main = new Vue({
     el: "#main",
     data : {
         scheduledTask : {
-            grouped: [1,2],
-            ungrouped : [2,3,4]
+            grouped: [],
+            ungrouped : []
         },
 
         todayTask : {
-            grouped: [1,4,3],
-            ungrouped : [1,2]
+            grouped: [],
+            ungrouped : []
         }
     },
     methods : {
-        //expand : function(e) {
-        //    const targetDom = e.target;
-        //    console.log($(targetDom).parents(".grouped").children(".expanded"));
-        //    $(targetDom).parents(".grouped").children(".expanded").toggle("d-none");
-        //    $(targetDom).parents(".grouped").children(".toHideContent").toggle("d-none");
-        //    $(targetDom).parents(".grouped").children(".toShowContent").toggle("d-none");
-        //    e.stopPropagation();
-        //},
+
 
         expandGroup : function(e){
             const targetDom = e.target;
@@ -39,6 +32,23 @@ var main = new Vue({
             $($(targetDom).parents(".task-unit")[0].querySelector(".toShowContent")).toggle("dplay-none");
             $($(targetDom).parents(".task-unit")[0].querySelector(".toHideContent")).toggle("dplay-none");
             e.stopPropagation();
+        },
+
+        getTasks : async function(){
+            const ajax = new Ajax();
+            this.todayTask.ungrouped = await ajax.get('/tasks');
+            console.log("Tasks mess:\n", this.todayTask);
+        },
+
+        getGroups : async function() {
+            const ajax = new Ajax();
+            this.todayTask.grouped = await ajax.get('/groups');
+            console.log("Tasks mess:\n", this.todayTask);
+
         }
+    },
+    async beforeMount (){
+        await this.getGroups();
+        await this.getTasks();
     }
 })
