@@ -10,7 +10,16 @@ router.get('/', async (req, res) => {
     res.json(sqlResult);
 });
 
+router.get('/signup', (req, res) => {
+    res.render('signup.ejs');
+})
 
+router.post('/signup', (req, res) => {
+    console.log(req.body);
+    res.send({
+        mess : "ok"
+    });
+})
 router.post('/login', (req, res) => {
     console.log(req.body);
 })

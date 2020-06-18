@@ -26,19 +26,19 @@ router.get('/', async (req, res) => {
                     // Fetch assignee and avaUsers for each task
                     for(task of tasks){
                         
-                        const assignees = await query(`SELECT Users.username, Users._id FROM Users \
-                                                        INNER JOIN Users_Tasks \   
-                                                        ON Users._id = Users_Tasks.user_id \
-                                                        INNER JOIN Tasks \
-                                                        ON Users_Tasks.task_id = Tasks._id \
+                        const assignees = await query(`SELECT Users.username, Users._id FROM Users 
+                                                        INNER JOIN Users_Tasks 
+                                                        ON Users._id = Users_Tasks.user_id 
+                                                        INNER JOIN Tasks 
+                                                        ON Users_Tasks.task_id = Tasks._id 
                                                         WHERE Tasks._id = ${task._id}`);
                         
 
-                        const avaUsers = await query(`select Users._id, Users.username from Users \
-                                                        where Users._id not in (\
-                                                        SELECT Users._id FROM Users \
-                                                        INNER JOIN Users_Tasks  ON Users._id = Users_Tasks.user_id  \
-                                                        INNER JOIN Tasks ON Users_Tasks.task_id = Tasks._id \
+                        const avaUsers = await query(`select Users._id, Users.username from Users 
+                                                        where Users._id not in (
+                                                        SELECT Users._id FROM Users 
+                                                        INNER JOIN Users_Tasks  ON Users._id = Users_Tasks.user_id  
+                                                        INNER JOIN Tasks ON Users_Tasks.task_id = Tasks._id 
                                                         WHERE Tasks._id = ${task._id} )`); 
 
                         //assign values

@@ -313,6 +313,8 @@ body {
   
 }
 .form-control:focus {
-  box-shadow: none;
+  box-shadow: 1px 3px 3px 3px rgba(231, 231, 231, 0.651);
+  outline: 3px solid rgba(158, 158, 158, 0.836);
+  
   border-color: rgb(116, 116, 116);
 }
