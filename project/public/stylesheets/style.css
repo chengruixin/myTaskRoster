@@ -1,3 +1,7 @@
+.no-rounded {
+    border-radius: 0;
+}
+
 .rounded-1 {
     border-radius: 0.2em;
 }

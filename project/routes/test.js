@@ -15,6 +15,7 @@ router.get('/', async function(req, res) {
 
 
 router.get('/tasks', async (req,res)=>{
+    
     try{
         const result = await query("select * from Tasks");
         console.log(result);
