@@ -306,3 +306,13 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+
+.form-control{
+  border-radius: 0;
+  
+}
+.form-control:focus {
+  box-shadow: none;
+  border-color: rgb(116, 116, 116);
+}
