@@ -1,8 +1,8 @@
 function authUsers(req, res, next) {
     const {user} = req.session;
-
+    console.log(req.session);
     if(!user){
-        res.status(401).send("not authorized");
+        res.status(400).redirect("/?error=loginfailed");
     }
     else {
         next();

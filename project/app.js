@@ -25,7 +25,7 @@ app.use(session({
     secret : "h.el1lo,raui&xd!f",
     resave : false,
     saveUninitialized : true,
-    cookie : {secure : true}
+    cookie : {secure : false}
 }));
 
 app.use('/', indexRouter);

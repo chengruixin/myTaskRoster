@@ -181,7 +181,7 @@ body {
   background-color: rgba(255, 200, 200, 0.849);
 }
 .clicked {
-  border: 3px solid cornflowerblue;
+  outline: 3px solid cornflowerblue;
   
 }
 .assignee-head {

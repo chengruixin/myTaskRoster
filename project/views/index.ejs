@@ -12,28 +12,57 @@
     </div>
     <div class="col-12 col-md-4 ">
         
-        <div id="login-form ">
+        <div id="login">
             <div class="form-group ">
             <label for="username">Username</label>
-            <input type="text" class="form-control py-4" id="username" >
+            <input type="text" class="form-control py-4"  v-model="username">
             </div>
 
             <div class="form-group ">
             <label for="password">Password</label>
-            <input type="password" class="form-control py-4" id="username" >
+            <input type="password" class="form-control py-4"  v-model="password">
             </div>
 
             <div class="my-4">
-            <button class="btn btn-success w-100 ">Login</button>
+            <button class="btn btn-success w-100" @click="login">Login</button>
             </div>
             
+            <div>
+                {{info}}
+            </div>
         </div>  
     </div>
     </div>
 
-    <!-- Testing... -->
-    <group-one></group-one>
-    <taskn></taskn>
+    <script>
+        var login = new Vue({
+            el : "#login",
+            data : {
+                username : "",
+                password : "",
+                info: ""
+            },
+            methods : {
+                login : async function(){
+                    this.info = "";
+                    try{
+                        const ajax = new Ajax();
+                        const result = await ajax.post('/users/login', {
+                            username : this.username,
+                            password : this.password
+                        });
+
+                        console.log(result);
+                    }
+                    catch(err){
+                        console.log(err);
+
+                        this.info += err.data.message;
+                    }
+                }
+            }
+        })
+    </script>
     
 </main>
 

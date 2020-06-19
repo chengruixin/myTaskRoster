@@ -47,8 +47,16 @@ var mainApp = new Vue({
                 }
 
                 if(this.info.length === 0){
-                    const ajax = new Ajax();
-                    console.log(await ajax.post('/users/signup', newUser));
+                    try{
+                        const ajax = new Ajax();
+                        console.log(await ajax.post('/users/signup', newUser));
+                    }
+                    
+                    catch(err){
+                        console.log(err);
+
+                        this.info += err.data.message;
+                    }
                 }
                 
             }   
