@@ -11,6 +11,19 @@ router.get('/', async (req, res) => {
     res.json(sqlResult);
 });
 
+router.get('/checkStatus', async(req, res)=> {
+    const {user} = req.session;
+    if(!user){
+        res.json({
+            isLoggedIn : false,       
+        });
+    }
+    else res.json({
+        isLoggedIn : true,
+        username : user.username,
+        userId : user.userId
+    })
+})
 router.get('/signup', (req, res) => {
     res.render('signup.ejs');
 })
@@ -30,15 +43,16 @@ router.post('/signup', async (req, res) => {
             console.log(username, email, hashed, password);
             const savedRes = await query(`INSERT INTO Users (username, email, password, lookup) VALUES (?,?,?,?)`, [username,email,hashed, password]);
             
+            console.log(savedRes);
             //assign session token
             req.session.user = {
-                username : username
+                username : username,
+                userId : savedRes.insertId
             }
             
-            req.session.save();
+        
             res.json({
                 message: "signup successfully!",
-                invoice : savedRes
             });
         }
         
@@ -67,7 +81,8 @@ router.post('/login', async (req, res) => {
 
         else{
             req.session.user = {
-                userId : users[0]._id
+                userId : users[0]._id,
+                username : users[0].username
             }
             console.log(req.session);
             
@@ -86,4 +101,12 @@ router.post('/login', async (req, res) => {
     }
 })
 
+
+router.get('/logout', (req, res) => {
+    req.session.destroy( err => {
+        if(err) res.status(500).redirect("/?error=status500");
+        
+        else res.redirect("/");
+    })
+})
 module.exports = router;

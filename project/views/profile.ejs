@@ -1,136 +1,112 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<%- include('partials/header.ejs') %> 
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
-    <!-- custom CSS -->
-    <link rel="stylesheet" href="/stylesheets/app.css">
-    <link rel="stylesheet" href="/stylesheets/color.css">
-    <link rel="stylesheet" href="/stylesheets/text.css">
-    <link rel="stylesheet" href="/stylesheets/style.css">
-
-    <!-- Vue.js -->
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-
-    <!-- Jquery -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     
-    <title>YouTask</title>
-</head>
-<body>
-    
-    <main class="container py-3">
+<main class="container py-3">
 
-        <div class="d-flex flex-column align-items-center">
-            <div id="profile" class="info-table res-w-50" v-cloak>
-                <div class="row positive-mg info-head ">
-                    <div class="col-12 text-8">
-                        Profile Info
-                    </div>
-                </div>
-                <div class="row  positive-mg align-items-baseline py-3 info-item">
-                    <div class="col-3 ">PHOTO</div>
-                    <div class="col-9 d-flex align-items-center">
-                        <span class="flex-grow-1 color-gray" >Add your photo </span>
-                        <span class="colleague-lg"></span>
-                    </div>
-                </div>
-    
-                <div class="row  positive-mg info-item">
-                    <div class="col-3 ">NAME</div>
-                    <div class="col-9 color-gray">ABDCDDF</div>
-                </div>
-                
-                <div class="row  positive-mg info-item">
-                    <div class="col-3 ">BIRTHDAY</div>
-                    <div class="col-9 color-gray">___/___/___</div>
-                </div>
-    
-                <div class="row  positive-mg info-item">
-                    <div class="col-3 ">GENDER</div>
-                    <div class="col-9 color-gray">Female/Male</div>
-                </div>
-    
-                <div class="row  positive-mg info-item">
-                    <div class="col-3 ">IDENTITY</div>
-                    <div class="col-9 color-gray">Manager/Normal User</div>
-                </div>
-                
-                <div class="row  positive-mg info-item">
-                    <div class="col-3 ">AVAILABLITY</div>
-                    <div class="col-9 color-gray">
-                        <button class="debtn ava-switch-green">ON</button>
-                        <button class="debtn ava-switch-red">OFF</button>
-                    </div>
-                </div>
-
-                <div class="row  positive-mg info-item">
-                    <div class="col-12 col-md-3 ">PREFERENCE</div>
-                    <div class="col-12 col-md-9 color-gray d-flex flex-wrap align-items-center">
-                        <span class="preference ">
-                            <span class="preference-tag">
-                                Testing
-                            </span>
-                            <button class="preference-delete">X</button>
-                        </span>
-
-                        <span class="preference ">
-                            <span class="preference-tag">
-                                coding
-                            </span>
-                            <button class="preference-delete">X</button>
-                        </span>
-
-                        <span class="preference" v-show="!isShowing" @click="showPreferInput">
-                            <button class="preference-new">
-                                Add preference
-                            </button>
-                        </span>
-
-                        <span class="preference" v-show="isShowing">
-                            <button class="btn btn-secondary py-1" @click="hidePreferInput">Cancel</button>
-                            <input class="underline-input py-0 indent-2 " type="text">
-                            <button class="btn btn-success py-1">Add</button>
-                        </span>
-                        
-                    </div>
+    <div class="d-flex flex-column align-items-center">
+        <div id="profile" class="info-table res-w-50" v-cloak>
+            <div class="row positive-mg info-head ">
+                <div class="col-12 text-8">
+                    Profile Info
                 </div>
             </div>
-    
-            <hr class="my-5 res-w-50">
-    
-            <div id="contact" class="info-table res-w-50">
-                <div class="row positive-mg info-head ">
-                    <div class="col-12 text-8">
-                        Contact Info
-                    </div>
+            <div class="row  positive-mg align-items-baseline py-3 info-item">
+                <div class="col-3 ">PHOTO</div>
+                <div class="col-9 d-flex align-items-center">
+                    <span class="flex-grow-1 color-gray" >Add your photo </span>
+                    <span class="colleague-lg"></span>
                 </div>
-               
-    
-                <div class="row  positive-mg info-item">
-                    <div class="col-3 ">Email</div>
-                    <div class="col-9 color-gray">123812379@asdf.com</div>
+            </div>
+
+            <div class="row  positive-mg info-item">
+                <div class="col-3 ">NAME</div>
+                <div class="col-9 color-gray">ABDCDDF</div>
+            </div>
+            
+            <div class="row  positive-mg info-item">
+                <div class="col-3 ">BIRTHDAY</div>
+                <div class="col-9 color-gray">___/___/___</div>
+            </div>
+
+            <div class="row  positive-mg info-item">
+                <div class="col-3 ">GENDER</div>
+                <div class="col-9 color-gray">Female/Male</div>
+            </div>
+
+            <div class="row  positive-mg info-item">
+                <div class="col-3 ">IDENTITY</div>
+                <div class="col-9 color-gray">Manager/Normal User</div>
+            </div>
+            
+            <div class="row  positive-mg info-item">
+                <div class="col-3 ">AVAILABLITY</div>
+                <div class="col-9 color-gray">
+                    <button class="debtn ava-switch-green">ON</button>
+                    <button class="debtn ava-switch-red">OFF</button>
                 </div>
-                
-                <div class="row  positive-mg info-item">
-                    <div class="col-3 ">PHONE</div>
-                    <div class="col-9 color-gray">049999999</div>
+            </div>
+
+            <div class="row  positive-mg info-item">
+                <div class="col-12 col-md-3 ">PREFERENCE</div>
+                <div class="col-12 col-md-9 color-gray d-flex flex-wrap align-items-center">
+                    <span class="preference ">
+                        <span class="preference-tag">
+                            Testing
+                        </span>
+                        <button class="preference-delete">X</button>
+                    </span>
+
+                    <span class="preference ">
+                        <span class="preference-tag">
+                            coding
+                        </span>
+                        <button class="preference-delete">X</button>
+                    </span>
+
+                    <span class="preference" v-show="!isShowing" @click="showPreferInput">
+                        <button class="preference-new">
+                            Add preference
+                        </button>
+                    </span>
+
+                    <span class="preference" v-show="isShowing">
+                        <button class="btn btn-secondary py-1" @click="hidePreferInput">Cancel</button>
+                        <input class="underline-input py-0 indent-2 " type="text">
+                        <button class="btn btn-success py-1">Add</button>
+                    </span>
+                    
                 </div>
-    
-                
-               
-    
             </div>
         </div>
-        
-        
-    </main>
 
-    <script src="/javascripts/profile.js"></script>
-</body>
-</html>
+        <hr class="my-5 res-w-50">
+
+        <div id="contact" class="info-table res-w-50">
+            <div class="row positive-mg info-head ">
+                <div class="col-12 text-8">
+                    Contact Info
+                </div>
+            </div>
+            
+
+            <div class="row  positive-mg info-item">
+                <div class="col-3 ">Email</div>
+                <div class="col-9 color-gray">123812379@asdf.com</div>
+            </div>
+            
+            <div class="row  positive-mg info-item">
+                <div class="col-3 ">PHONE</div>
+                <div class="col-9 color-gray">049999999</div>
+            </div>
+
+            
+            
+
+        </div>
+    </div>
+    
+    
+</main>
+
+<script src="/javascripts/profile.js"></script>
+<%- include('partials/footer.ejs') %> 

@@ -50,6 +50,7 @@ var mainApp = new Vue({
                     try{
                         const ajax = new Ajax();
                         console.log(await ajax.post('/users/signup', newUser));
+                        window.location.replace('/');
                     }
                     
                     catch(err){

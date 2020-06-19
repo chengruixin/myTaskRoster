@@ -6,7 +6,13 @@ const authUsers = require('../middleware/authUsers');
 
 /* GET home page. */
 router.get('/', (req, res) => {
-    res.render('index.ejs');
+    const {user} = req.session;
+    if(!user){
+        res.render('index.ejs');
+    }
+    else{
+        res.redirect('/myTasks');
+    }
 });
 
 
@@ -14,17 +20,17 @@ router.get('/myTasks', authUsers, (req,res)=>{
     res.render('myTasks.ejs');
 });
 
-router.get('/manageTasks', (req,res)=>{
+router.get('/manageTasks',  authUsers, (req,res)=>{
     res.render('manageTasks.ejs');
 });
 
 
 
-router.get('/profile', (req,res)=>{
+router.get('/profile',  authUsers,(req,res)=>{
     res.render('profile.ejs');
 });
 
-router.get('/email', (req,res)=>{
+router.get('/email',  authUsers, (req,res)=>{
     res.render('email.ejs');
 });
 
