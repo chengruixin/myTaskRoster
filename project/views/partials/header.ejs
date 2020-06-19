@@ -35,7 +35,7 @@
 <!-- Navigation bar -->
 
     <header>
-        <nav class="navbar navbar-light bg-light py-1 mb-4">
+        <!--<nav class="navbar navbar-light bg-light py-1 mb-4">
             
             <div class="container">
                 <a class="navbar-brand text-3" href="/">YouTask Logo</a>
@@ -58,7 +58,39 @@
                 </a>
             </div>
             
-        </nav>
+        </nav>-->
+
+        <nav class="d-flex navbar bg-light mb-4 shadow-2">
+            <div class="navbar-logo">
+                <a href="/" class="delink mx-3">
+        
+                YouTask
+                </a>
+            </div>
+        
+            <div class="navbar-items flex-grow-1">
+                <a href="/myTasks" class="delink mx-2 navbar-item">Tasks</a>
+                <a href="/manageTasks" class="delink mx-2 navbar-item">Manage</a>
+
+                <a href="/profile" class="delink mx-2 navbar-item">Profile</a>
+                <a href="/email" class="delink mx-2 navbar-item">Emails</a>
+            </div>
+        
+            <div class="navbar-ending">
+                <!--<button class="navbar-btn navbar-btn-gray rounded-4 ">
+                    Login
+                </button>
+        
+                <button class="navbar-btn navbar-btn-blue rounded-4">
+                    Signup
+                </button>-->
+                <span>Username</span>
+                <a href="/" class="delink navbar-btn navbar-btn-yellow rounded-4">Log out</a>
+                <a href="/" class="delink navbar-btn navbar-btn-blue rounded-4">Log in</a>
+                <a href="/" class="delink navbar-btn navbar-btn-gray rounded-4">Sign up</a>
+
+            </div>
+            </nav>
     </header>
     
 

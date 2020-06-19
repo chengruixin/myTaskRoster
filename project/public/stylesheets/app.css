@@ -51,10 +51,7 @@ body {
 }
 
 .navbar-btn {
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 1em;
-  padding-right: 1em;
+  padding: 0.25em 1em;
   border: 1px solid silver;
   outline : none;
   background: none;
