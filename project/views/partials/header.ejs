@@ -26,6 +26,11 @@
     <!-- My custom methods -->
     <script src="/javascripts/customs.js"></script>
     
+    <!-- Google sign in -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="648640230327-7lvnmudv7f718m32rl8ejvu7k65l2mlu.apps.googleusercontent.com">
+
+    <link rel="shortcut icon" href="favicon.ico">
 
     <title>YouTask</title>
 
@@ -85,7 +90,7 @@
                 </button>-->
                 <span class="mx-3">{{username}}</span>
                 <a href="/users/logout" class="delink navbar-btn navbar-btn-yellow rounded-4" v-if="isLoggedIn">Log out</a>
-                <!--<a href="/" class="delink navbar-btn navbar-btn-blue rounded-4" v-if="!isLoggedIn">Log in</a>-->
+                <a href="/users/login" class="delink navbar-btn navbar-btn-blue rounded-4" v-if="!isLoggedIn">Log in</a>
                 <a href="/users/signup" class="delink navbar-btn navbar-btn-gray rounded-4" v-if="!isLoggedIn">Sign up</a>
                 
             </div>

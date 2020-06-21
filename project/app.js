@@ -10,6 +10,7 @@ const usersRouter = require('./routes/users');
 const testRouter = require('./routes/test');
 const tasksRouter = require('./routes/tasks');
 const groupsRouter = require('./routes/groups');
+const authRouter = require('./routes/auth');
 const app = express();
 
 //connect to db
@@ -33,5 +34,6 @@ app.use('/users', usersRouter);
 app.use('/tasks', tasksRouter);
 app.use('/groups', groupsRouter);
 app.use('/test', testRouter);
+app.use('/auth', authRouter);
 
 module.exports = app;

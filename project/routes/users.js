@@ -28,6 +28,11 @@ router.get('/signup', (req, res) => {
     res.render('signup.ejs');
 })
 
+
+router.get('/login', (req, res) => {
+    res.render('login.ejs');
+})
+
 router.post('/signup', async (req, res) => {
     try{
         console.log(req.body);
@@ -41,7 +46,7 @@ router.post('/signup', async (req, res) => {
             const {username,email,password} = req.body;
             const hashed = await argon2.hash(password);
             console.log(username, email, hashed, password);
-            const savedRes = await query(`INSERT INTO Users (username, email, password, lookup) VALUES (?,?,?,?)`, [username,email,hashed, password]);
+            const savedRes = await query(`INSERT INTO Users (username, email, password, lookup, isThirdParty) VALUES (?,?,?,?,?)`, [username,email,hashed, password,false]);
             
             console.log(savedRes);
             //assign session token
@@ -67,7 +72,7 @@ router.post('/signup', async (req, res) => {
 router.post('/login', async (req, res) => {
     try{
         console.log(req.body);
-        const users = await query(`SELECT * FROM Users WHERE username = '${req.body.username}'`);
+        const users = await query(`SELECT * FROM Users WHERE username = '${req.body.username}' AND isThirdParty = false`);
         console.log(users);
         if(users.length === 0) 
             res.status(400).json({
