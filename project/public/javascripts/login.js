@@ -10,7 +10,7 @@ var login = new Vue({
             this.info = "";
             try{
                 const ajax = new Ajax();
-                const result = await ajax.post('/users/login', {
+                const result = await ajax.post('/auth/login', {
                     username : this.username,
                     password : this.password
                 });
@@ -45,10 +45,28 @@ async function onSignIn(googleUser) {
             token: id_token
         });
 
-        console.log(response);
+        if(response.email_verified){
+            window.location.replace('/myTasks');
+        }
     }
     catch(err){
         console.log(err);
     }
-    //window.location.replace('/');
+
   }
+
+function onFailure(error) {
+      console.log(error);
+    }
+
+function renderButton() {
+      gapi.signin2.render('my-signin2', {
+        'scope': 'profile email',
+        'width': 400,
+        'height': 50,
+        'longtitle': true,
+        'theme': 'dark',
+        'onsuccess': onSignIn,
+        'onfailure': onFailure
+      });
+    }

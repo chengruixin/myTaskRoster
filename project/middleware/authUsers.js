@@ -1,12 +1,20 @@
 function authUsers(req, res, next) {
-    const {user} = req.session;
+    const {user, verification} = req.session;
     console.log(req.session);
-    if(!user){
-        res.status(400).redirect("/users/login?error=loginfailed");
+    if(verification){
+        res.redirect('/auth/username/new');
     }
-    else {
-        next();
+    else{
+        if(!user){
+            res.status(400).redirect("/auth/login?error=loginfailed");
+        }
+        else {
+
+            //verify the users
+            next();
+        }
     }
+
 }
 
 module.exports = authUsers;

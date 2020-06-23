@@ -1,42 +1,40 @@
-<%- include('partials/header.ejs') %> 
+<%- include('partials/header.ejs') %>
 
 <main>
 
     <div class="container d-flex flex-column align-items-end">
 
-        
+
         <div id="login" v-cloak class="res-w-25">
             <div class="form-group ">
-            <label for="username">Username</label>
-            <input type="text" class="form-control py-4"  v-model="username">
+                <label for="username">Username</label>
+                <input type="text" class="form-control py-4"  v-model="username">
             </div>
-            
+
             <div class="form-group ">
-            <label for="password">Password</label>
-            <input type="password" class="form-control py-4"  v-model="password">
+                <label for="password">Password</label>
+                <input type="password" class="form-control py-4"  v-model="password">
             </div>
-    
+
             <div class="my-4">
-            <button class="btn btn-success w-100" @click="login">Login</button>
+                <button class="btn btn-success w-100" @click="login">Login</button>
             </div>
-            
+
             <div>
                 {{info}}
             </div>
-        </div> 
+        </div>
 
         <!--<div style="border-top: 1px solid silver;" class="res-w-25"></div>-->
         <div class="res-w-25">
             <hr class="res-w-25">
         </div>
         <div id="third-party" class="res-w-25">
-            <div class="g-signin2" data-onsuccess="onSignIn">Sign in with Google</div>
+            <div id="my-signin2"></div>
         </div>
     </div>
-     
+
 </main>
 
-
-
 <script src="/javascripts/login.js"></script>
-<%- include('partials/footer.ejs') %> 
+<%- include('partials/footer.ejs') %>

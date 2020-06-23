@@ -1,0 +1,65 @@
+<%- include('partials/header.ejs') %>
+
+
+<main id="mainApp" v-cloak>
+    <div class="container">
+        <div class="res-w-30">
+            <div>
+                <h4>
+                    Please create a name for your account
+                </h4>
+            </div>
+            <div class="form-group ">
+                <label for="username">Username</label>
+                <input type="text" class="form-control py-4" v-model="username">
+            </div>
+
+            <div class="my-4">
+                <button class="btn btn-success w-100" @click="createAccount">Create</button>
+            </div>
+
+            <div>
+                {{info}}
+            </div>
+        </div>
+
+    </div>
+</main>
+
+
+<script>
+    const mainApp = new Vue({
+        el : "#mainApp",
+        data : {
+            username : null,
+            info: ""
+        },
+
+        methods: {
+            createAccount : async function(){
+                try{
+                    this.info = "";
+                    const validator = new Validator();
+                    const ajax = new Ajax();
+
+                    if(!validator.isValidUsername(this.username)) {
+                        this.info = "Invalid username format"
+                    }
+                    else {
+                        const result = await ajax.post('/auth/username/new',{
+                            username : this.username
+                        });
+
+                        console.log(result);
+                        setTimeout(function(){ window.location.replace('/'); }, 1000);
+                    }
+
+                }
+                catch(err){
+                    console.log(err);
+                }
+            }
+        }
+    })
+</script>
+<%- include('partials/footer.ejs') %>

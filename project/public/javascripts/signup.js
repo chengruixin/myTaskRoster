@@ -17,7 +17,7 @@ var mainApp = new Vue({
                 password : this.password,
                 rePass : this.rePass
             }
-           
+
 
             /*
             * Validation
@@ -49,19 +49,19 @@ var mainApp = new Vue({
                 if(this.info.length === 0){
                     try{
                         const ajax = new Ajax();
-                        console.log(await ajax.post('/users/signup', newUser));
+                        console.log(await ajax.post('/auth/signup', newUser));
                         window.location.replace('/');
                     }
-                    
+
                     catch(err){
                         console.log(err);
 
                         this.info += err.data.message;
                     }
                 }
-                
-            }   
-            
+
+            }
+
         }
     }
 })

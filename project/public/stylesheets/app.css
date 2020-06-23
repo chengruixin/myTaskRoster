@@ -1,7 +1,7 @@
-/* 
+/*
   font color: rgb(82,82,82);
   bg color : rgba(190, 189, 189, 0.911);
-  active color : 
+  active color :
   border color: rgb(221, 221, 221)
 */
 
@@ -11,10 +11,10 @@ body {
   padding: 0;
   box-sizing: border-box;
 
-  /*background: #00B4DB; 
-  background: -webkit-linear-gradient(to right, #0083B0, #00B4DB);  
+  /*background: #00B4DB;
+  background: -webkit-linear-gradient(to right, #0083B0, #00B4DB);
   background: linear-gradient(to right, #0083B0, #00B4DB); */
-  
+
 }
 
 [v-cloak] {
@@ -115,11 +115,11 @@ body {
 
 .task-new {
   /*border: 3px dashed #FF851B !important;*/
- 
+
   border-width: 3px !important;
   border-style: dashed !important;
   /*border-color: aliceblue !important;*/
-  
+
   padding-top: 0.5em;
   padding-bottom: 0.5em;
   padding-left: 1em;
@@ -146,7 +146,7 @@ body {
   background-color: rgb(108, 151, 111);
   display: inline-block;
   border-radius: 5em;
-  
+
 }
 
 
@@ -156,7 +156,7 @@ body {
   background-color: rgb(219, 223, 197);
   display: inline-block;
   border-radius: 5em;
-  
+
 }
 
 
@@ -171,7 +171,7 @@ body {
   color: beige;
   font-size: 0.8em;
 }
-  
+
 .assignee {
   border-radius: 0.5em;
   margin: 1em;
@@ -179,7 +179,7 @@ body {
 }
 .clicked {
   outline: 3px solid cornflowerblue;
-  
+
 }
 .assignee-head {
   border-top-left-radius: 0.5em;
@@ -243,7 +243,7 @@ body {
   background: none;
   border: 3px dashed rgb(221, 221, 221);
   border-radius: 1em;
-  
+
 }
 
 .preference-new:focus {
@@ -256,12 +256,12 @@ body {
   border-top-left-radius: 1em;
   border-bottom-left-radius: 1em;
 
-  
+
 }
 
 .ava-switch-red {
   padding: 0.3em 0.7em;
-  
+
   border-top-right-radius: 1em;
   border-bottom-right-radius: 1em;
 }
@@ -287,8 +287,8 @@ body {
   height: 5em;
   border-radius: 1em;
   padding: 0.5em 1em;
-  
-  
+
+
 }
 
 .notification-mess:focus {
@@ -307,11 +307,11 @@ body {
 
 .form-control{
   border-radius: 0;
-  
+
 }
 .form-control:focus {
   box-shadow: 1px 3px 3px 3px rgba(231, 231, 231, 0.651);
   outline: 3px solid rgba(158, 158, 158, 0.836);
-  
+
   border-color: rgb(116, 116, 116);
 }

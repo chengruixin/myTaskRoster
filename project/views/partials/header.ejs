@@ -25,9 +25,9 @@
 
     <!-- My custom methods -->
     <script src="/javascripts/customs.js"></script>
-    
+
     <!-- Google sign in -->
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
     <meta name="google-signin-client_id" content="648640230327-7lvnmudv7f718m32rl8ejvu7k65l2mlu.apps.googleusercontent.com">
 
     <link rel="shortcut icon" href="favicon.ico">
@@ -40,64 +40,34 @@
 <!-- Navigation bar -->
 
     <header>
-        <!--<nav class="navbar navbar-light bg-light py-1 mb-4">
-            
-            <div class="container">
-                <a class="navbar-brand text-3" href="/">YouTask Logo</a>
-
-                <div class="navbar-nav mr-auto flex-row">
-                <a class="nav-link nav-item text-3 mx-3" href="/myTasks">Tasks</a>
-                <a class="nav-link nav-item text-3 mx-3" href="/manageTasks">Manage</a>
-                <a class="nav-link nav-item text-3 mx-3" href="/profile">Profile</a>
 
 
-                </div>
-
-            
-                <button class="btn btn-primary mr-2 text-3 ">
-                    Login
-                </button>
-
-                <a href="/users/signup" class="btn btn-light text-3">
-                    Signup
-                </a>
-            </div>
-            
-        </nav>-->
-
-        <nav class="d-flex navbar bg-light mb-4 shadow-2" id="navbar" v-cloak>
+        <nav class="d-flex navbar bg-light mb-4 shadow-2 py-0 px-5" id="navbar" v-cloak>
             <div class="navbar-logo">
                 <a href="/" class="delink mx-3">
                 YouTask
                 </a>
             </div>
-        
-            <div class="navbar-items flex-grow-1">
+
+            <div class="navbar-items flex-grow-1 d-flex align-items-baseline">
                 <a href="/myTasks" class="delink mx-2 navbar-item">Tasks</a>
                 <a href="/manageTasks" class="delink mx-2 navbar-item">Manage</a>
 
                 <a href="/profile" class="delink mx-2 navbar-item">Profile</a>
                 <a href="/email" class="delink mx-2 navbar-item">Emails</a>
             </div>
-        
-            <div class="navbar-ending">
-                <!--<button class="navbar-btn navbar-btn-gray rounded-4 ">
-                    Login
-                </button>
-        
-                <button class="navbar-btn navbar-btn-blue rounded-4">
-                    Signup
-                </button>-->
+
+            <div class="navbar-ending ">
+
                 <span class="mx-3">{{username}}</span>
-                <a href="/users/logout" class="delink navbar-btn navbar-btn-yellow rounded-4" v-if="isLoggedIn">Log out</a>
-                <a href="/users/login" class="delink navbar-btn navbar-btn-blue rounded-4" v-if="!isLoggedIn">Log in</a>
-                <a href="/users/signup" class="delink navbar-btn navbar-btn-gray rounded-4" v-if="!isLoggedIn">Sign up</a>
-                
+
+                <a href="/auth/login" class="delink navbar-btn navbar-btn-blue rounded-4" v-if="!isLoggedIn">Log in</a>
+                <a href="/auth/signup" class="delink navbar-btn navbar-btn-gray rounded-4" v-if="!isLoggedIn">Sign up</a>
+                <a href="#" @click="signOut" class="delink navbar-btn navbar-btn-yellow rounded-4" v-if="isLoggedIn">Sign out</a>
             </div>
             </nav>
     </header>
-    
-    <script src="/javascripts/navbar.js"></script>
 
+    <script src="/javascripts/navbar.js"></script>
 
 
