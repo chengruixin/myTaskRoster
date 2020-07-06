@@ -1,7 +1,4 @@
-# myTaskRoster
-
-软件已经部署在heroku
-App has been hosted on herouku
+# 地址
 <https://youtask-1.herokuapp.com/>
 
 
