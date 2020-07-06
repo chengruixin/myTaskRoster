@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/stylesheets/font-awesome/css/font-awesome.min.css">
+
+    <!-- custom CSS -->
+    <link rel="stylesheet" href="/stylesheets/app.css">
+    <link rel="stylesheet" href="/stylesheets/color.css">
+    <link rel="stylesheet" href="/stylesheets/text.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+
+    <!-- Vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <!-- Jquery -->
+    <!--<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"-->
+    <!--    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"-->
+    <!--    crossorigin="anonymous"></script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- My custom methods -->
+    <script src="/javascripts/customs.js"></script>
+
+    <!-- Google sign in -->
+
+    <meta name="google-signin-client_id" content="648640230327-7lvnmudv7f718m32rl8ejvu7k65l2mlu.apps.googleusercontent.com">
+
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <title>YouTask</title>
+
+</head>
+<body>
+
+<!-- Navigation bar -->
+
+    <header>
+
+
+        <nav class="d-flex flex-wrap align-items-center bg-navbar shadow-2 py-0 " id="navbar" v-cloak>
+            <div class="navbar-logo">
+                <a href="/" class="delink">
+                    <i class="fa fa-connectdevelop" aria-hidden="true"><span class="ml-2">YouTask</span></i>
+                </a>
+            </div>
+
+            <div class="responsive-hidden flex-grow-1 d-flex align-items-center ml-2">
+                <div class="navbar-items flex-grow-1 d-flex align-items-baseline">
+                    <a href="/myTasks" class="delink mx-2 navbar-item">Tasks</a>
+                    <a href="/manageTasks" class="delink mx-2 navbar-item" v-if="identity === 'manager'">Manage</a>
+
+                    <a href="/users/profile" class="delink mx-2 navbar-item">Profile</a>
+                    <a href="/email" class="delink mx-2 navbar-item">Emails</a>
+                </div>
+
+                <div class="navbar-ending mr-5">
+                    <!--<span class="" ></span>-->
+                    <i class="fa fa-user-o" aria-hidden="true" style="color: white" v-if="username">
+                        <span class="mx-2">{{username}}</span>
+                    </i>
+                    <a href="/auth/login" class="delink navbar-btn navbar-btn-blue rounded-2 mx-2 text-weight shadow-1" v-if="!isLoggedIn">Log in</a>
+                    <a href="/auth/signup" class="delink navbar-btn navbar-btn-gray rounded-2 mx-2 text-weight shadow-1" v-if="!isLoggedIn">Sign up</a>
+                    <a href="#" @click="signOut" class="delink navbar-btn navbar-btn-yellow rounded-2 mx-2 text-weight shadow-1" v-if="isLoggedIn">Sign out</a>
+                </div>
+            </div>
+
+            <div class="responsive-display mr-4 alignitems ">
+                <!--<span class="mx-3">{{username}}</span>-->
+                <button @click="showSidebar" class="debtn" v-show="toShow">
+                    <i class="fa fa-bars text-5 text-secondary" aria-hidden="true"></i>
+                </button>
+                <button @click="hideSidebar" class="debtn" v-show="!toShow">
+                    <i class="fa fa-bars text-5  color-silver" aria-hidden="true"></i>
+                </button>
+            </div>
+
+            <div class="break " style="display: none;" id="sidebar-content">
+                <div class="row">
+                    <div class="col-12 my-3">
+                        <a href="/myTasks" class="delink sidebar-item text-shadow">Tasks</a>
+                    </div>
+                    <div class="col-12 my-3" v-if="identity === 'manager'">
+                        <a href="/manageTasks" class="delink sidebar-item text-shadow"  >Manage</a>
+                    </div>
+                    <div class="col-12 my-3">
+                        <a href="/users/profile" class="delink sidebar-item text-shadow">Profile</a>
+                    </div>
+                    <div class="col-12 my-3">
+                        <a href="/email" class="delink sidebar-item text-shadow">Emails</a>
+                    </div>
+                </div>
+
+                <hr class="my-0">
+
+                <div class="row">
+                    <div class="col-12 my-3" v-if="!isLoggedIn">
+                        <a href="/auth/login" class="delink sidebar-item text-weight text-shadow" >Log in</a>
+                    </div>
+
+                    <div class="col-12 my-3" v-if="!isLoggedIn">
+                        <a href="/auth/signup" class="delink  sidebar-item text-weight text-shadow" >Sign up</a>
+                    </div>
+
+                    <div class="col-12 my-3 " v-if="isLoggedIn">
+                        <a href="#" @click="signOut" class="delink sidebar-item text-weight text-shadow" >Sign out</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!--<div style="margin-bottom: 5em; background-color: blue;" ></div>-->
+    <script src="/javascripts/navbar.js"></script>
+
+

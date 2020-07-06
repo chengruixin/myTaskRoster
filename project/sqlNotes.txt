@@ -5,10 +5,11 @@ INSERT INTO Persons (LastName, Address) VALUES ('Wilson', 'Champs-Elysees')
 #select users from a task according to ${task._id}
 SELECT Users.username, Users._id FROM Users INNER JOIN Users_Tasks  ON Users._id = Users_Tasks.user_id  INNER JOIN Tasks ON Users_Tasks.task_id = Tasks._id WHERE Tasks._id = ${task._id}
 
-#select users not from a task 
+#select users not from a task
 select Users._id, Users.username from Users where Users._id not in (  SELECT Users._id FROM Users INNER JOIN Users_Tasks  ON Users._id = Users_Tasks.user_id  INNER JOIN Tasks ON Users_Tasks.task_id = Tasks._id WHERE Tasks._id = 6 );
 
-
+#select tasks according to users id
+select Tasks._id, Tasks.group_id, Tasks.name, Tasks.description, Tasks.start, Tasks.due  from Tasks INNER JOIN Users_Tasks ON Tasks._id = Users_Tasks.task_id inner join Users on Users._id = Users_Tasks.user_id where Tasks.group_id is null AND Users._id = 12;
 
 --------------------------------
 # Select rows that are not in other tables
@@ -22,3 +23,10 @@ WHERE Id NOT IN (
 # change table attributes
 
 alter table Tasks add primary key(_id)
+
+
+# change column constraint
+ALTER TABLE Users ALTER available SET DEFAULT true;
+
+#delete
+DELETE FROM table_name WHERE condition;

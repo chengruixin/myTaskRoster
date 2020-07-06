@@ -1,12 +1,19 @@
 function authUsers(req, res, next) {
-    const {user} = req.session;
+    const {user, verification} = req.session;
+    console.log("\nUsers coming through general middleware...");
+    console.log(req.session, '\n');
+    if(verification){
+        res.redirect('/auth/profile/new');
+    }
+    else{
+        if(!user){
+            res.status(400).redirect("/auth/login?error=loginfailed");
+        }
+        else {
+            next();
+        }
+    }
 
-    if(!user){
-        res.status(401).send("not authorized");
-    }
-    else {
-        next();
-    }
 }
 
 module.exports = authUsers;

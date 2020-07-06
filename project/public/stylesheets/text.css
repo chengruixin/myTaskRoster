@@ -62,3 +62,15 @@
 .text-wrap {
   overflow-wrap: break-word;
 }
+
+.text-weight {
+  font-weight: 600;
+}
+
+.text-weight-0 {
+  font-weight: 400;
+}
+
+.text-shadow{
+  text-shadow: 1px 1px rgb(7,7,7,.1);
+}

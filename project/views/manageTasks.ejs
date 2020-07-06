@@ -1,408 +1,510 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<%- include('partials/header.ejs') %>
 
-    <link rel="stylesheet" href="/stylesheets/app.css">
-    <link rel="stylesheet" href="/stylesheets/color.css">
-    <link rel="stylesheet" href="/stylesheets/text.css">
-    <link rel="stylesheet" href="/stylesheets/style.css">
+<main class="container" id="mainManage" v-cloak>
 
-    <!-- Vue.js -->
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- Grouped tasks -->
+    <h2 class="bder-bottom indent-2 py-3 ">Grouped Tasks</h2>
 
-    <!-- Jquery -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    
-    <!-- My custom methods -->
-    <script src="/javascripts/customs.js"></script>
+    <div class="task-box shadow-2" v-for="(group,groupIdx) in groups">
+        <div class="d-flex align-items-center ">
+            <span class="flex-grow-1 text-5 text-weight">Group : {{group.name.toUpperCase()}}</span>
 
-    <title>YouTask</title>
-</head>
-<body>
-<!-- Navigation bar -->
-    <nav class="d-flex navbar bg-light mb-3 shadow-2">
-        <div class="navbar-logo">
-        <a href="/" class="delink mx-3">YouTask logo</a>
-        </div>
+            <!-- Show start date and due date -->
+            <!--<span class="mx-3">Start: <span class="color-deep">{{new Date(group.start).toLocaleDateString()}}</span> </span>-->
+            <!--<span class="mx-3">Due:  <span class="color-deep">{{new Date(group.due).toLocaleDateString()}}</span></span>-->
 
-        <div class="navbar-items flex-grow-1">
-        <a href="" class="delink mx-2 navbar-item">Manage Tasks</a>
-        <a href="/profile" class="delink mx-2 navbar-item">Profile</a>
-        <!--<a href="" class="delink mx-2 navbar-item">Emails</a>-->
-        </div>
 
-        <div class="navbar-ending">
-        <button class="navbar-btn navbar-btn-gray rounded-4 ">
-            Login
-        </button>
+            <!--<button class="clickable-red debtn mx-3 text-4" @click="deleteGroup(groupIdx)">-->
+            <!--    <i class="fa fa-trash-o mx-1" aria-hidden="true"></i>-->
+            <!--    <span class="mx-2">Delete Group</span>-->
+            <!--</button>-->
 
-        <button class="navbar-btn navbar-btn-blue rounded-4">
-            Signup
-        </button>
+            <button class="debtn m-0 p-0 toShowContent dplay-none" @click.stop="expandGroup" id="cool">
+            <svg class="bi bi-caret-down" width="1.8em" height="1.8em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M3.204 5L8 10.481 12.796 5H3.204zm-.753.659l4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z"/>
+            </svg>
+            </button>
 
-        <span>Username</span>
-        
-        <button class="navbar-btn navbar-btn-yellow rounded-4" >Log out</button>
+            <button class="debtn m-0 p-0 toHideContent" @click.stop="expandGroup">
+            <svg class="bi bi-caret-up" width="1.8em" height="1.8em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M3.204 11L8 5.519 12.796 11H3.204zm-.753-.659l4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659z"/>
+            </svg>
+            </button>
 
         </div>
-    </nav>
 
-    <main class="container" id="mainManage" v-cloak>
+        <div class="expanded">
 
-        <!-- Grouped tasks -->
-        <h3 class="bder-bottom indent-2 py-2 ">Grouped Tasks:</h3>
 
-        <div class="task-box shadow-2" v-for="(group,groupIdx) in groups">
-            <div class="d-flex align-items-center ">
-                <span class="flex-grow-1 text-5">{{group.name}}</span>
+            <!-- Show start date and due date -->
+            <div class="task-unit">
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="task-attribute text-4 d-flex">
+                            <span class="flex-grow-1">Start date : </span>
+                            <span class="color-deep">{{new Date(group.start).toLocaleDateString()}}</span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6" >
+                        <div class="task-attribute text-4 d-flex">
+                            <span class="flex-grow-1">Due date :</span>
+                            <span class="color-deep">{{new Date(group.due).toLocaleDateString()}}</span>
+                        </div>
+                    </div>
 
-                <!-- Show start date and due date -->
-                <span class="mx-3">Start: <span class="color-deep">{{new Date(group.start).toLocaleDateString()}}</span> </span>
-                <span class="mx-3">Due:  <span class="color-deep">{{new Date(group.due).toLocaleDateString()}}</span></span>
-                <span class="mx-2"style="
-                width: 2em;
-                height: 2em;
-                padding: 1em;
-                border: 3px solid pink;
-                border-radius: 5em;
-                display: inline-block;
-                "></span>
 
-                <button class="debtn m-0 p-0 toShowContent dplay-none" @click.stop="expandGroup" id="cool">
-                <svg class="bi bi-caret-down" width="1.8em" height="1.8em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M3.204 5L8 10.481 12.796 5H3.204zm-.753.659l4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z"/>
-                </svg>
-                </button>
-                
-                <button class="debtn m-0 p-0 toHideContent" @click.stop="expandGroup">
-                <svg class="bi bi-caret-up" width="1.8em" height="1.8em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M3.204 11L8 5.519 12.796 11H3.204zm-.753-.659l4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659z"/>
-                </svg>
-                </button>
-                
+
+                </div>
             </div>
 
-            <div class="expanded">
 
-                <div class="task-unit  shadow-2 my-3" v-for="(task, taskIdx) in group.tasks">
-                    <div class="d-flex align-items-center ">
-                        <span class="flex-grow-1 text-5">{{task.name}}</span>
-        
-                        <!-- Show start date and due date -->
-                        <span class="mx-3">Start: <span class="color-deep">{{new Date(task.start).toLocaleDateString()}}</span> </span>
-                        <span class="mx-3">Due:  <span class="color-deep">{{new Date(task.due).toLocaleDateString()}}</span></span>
-                        <span class="mx-2"style="
-                        width: 2em;
-                        height: 2em;
-                        padding: 1em;
-                        border: 3px solid pink;
-                        border-radius: 5em;
-                        display: inline-block;
-                        "></span>
-        
-                        <button class="debtn m-0 p-0 toShowContent dplay-none" @click="expandTask" id="cool">
-                        <svg class="bi bi-caret-down" width="1.8em" height="1.8em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M3.204 5L8 10.481 12.796 5H3.204zm-.753.659l4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z"/>
-                        </svg>
-                        </button>
-                        
-                        <button class="debtn m-0 p-0 toHideContent" @click="expandTask">
-                        <svg class="bi bi-caret-up" width="1.8em" height="1.8em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M3.204 11L8 5.519 12.796 11H3.204zm-.753-.659l4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659z"/>
-                        </svg>
-                        </button>
-                        
-                    </div>
-        
-                    <div class="expanded">
-        
-                        <!-- Description -->
-                        <div class="task-unit">
-                        Description:
-                        <div class="task-unit">
-                            {{task.description}}
-                        </div>
-                        </div>
-        
-                        <!-- Involved People -->
-                        <div class="task-unit">
-                            People involved
-                            <div class="colleagues d-flex flex-wrap bg-silver p-2 rounded-4">
-                                
-                                <span class="colleague" v-for="(assignee, assignee_idx) in task.assignees ">{{assignee.username}}</span>
-                                
-                                <button class=" debtn task-new color-orange m-1 rounded-4" @click.stop="addNewPeople(taskIdx, $event)">+</button>
-            
-                                <div class="task-unit break new-colleague dplay-none">
-            
-                                    <div class="row no-gutters">
-                                        
-                                        <div class="col-12 col-md-4 col-lg-3 assignee" v-for="(user, i) in task.avaUsers">
-                                            <div @click="highlightInGroup($event, groupIdx, taskIdx, i)">
-                                                
-                                                <div class="assignee-head d-flex align-items-center px-2 py-1">
-                                                    <span class="flex-grow-1">{{user.username}}</span>
-                                                    <span class="colleague-small"></span>
-                                                </div>
-                    
-                                                <div class="assignee-body d-flex flex-wrap">
-                                                    <span class="assignee-skill">Hosting</span>
-                                                    <span class="assignee-skill">Code</span>
-                                                    <span class="assignee-skill">Web</span>
-                                                    <span class="assignee-skill">Consult</span>
-                                                    <span class="assignee-skill">UI design</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="col-12 d-flex justify-content-end" >
-                                            <button class="btn btn-primary mx-2 res-w-20" v-show="task.readyToAdd.length > 0" @click.stop="addUsersToTaskInGroup(groupIdx, taskIdx, $event)">ADD USERS</button>
-                                        </div>
-                                        
-        
+            <!-- Description -->
+            <div class="task-unit">
+                <span class="text-4">Group Description</span>
+                <textarea class="description-input"  @focus="editingGroupDesc($event, groupIdx)" >{{group.description}}</textarea>
+                <!--<div class="task-unit">-->
+                <div class="expanded d-flex dplay-none-im editing-control">
+                    <button class="btn btn-success" @click="updateGroupDesc($event, groupIdx)">Save</button>
+                    <button class="debtn ml-3 text-6 text-secondary" @click="uneditingGroupDesc($event, groupIdx)"><i class="fa fa-times" aria-hidden="true"></i></button>
+                </div>
+                <!--</div>-->
+            </div>
+
+
+            <!--People -->
+            <div class="task-unit">
+                <div class="text-4 mb-2">Total People involved</div>
+                <div class="colleagues d-flex flex-wrap align-items-center bg-silver p-2 rounded-4">
+
+                    <span class="colleague" v-for="(assignee, assigneeIdx) in group.assignees ">{{assignee.username}}</span>
+
+                    <button class=" debtn task-new color-orange m-1 rounded-4 shadow-1" @click.stop="addNewPeople(groupIdx, $event)">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                    </button>
+
+                    <div class="task-unit break new-colleague dplay-none">
+
+                        <div class="row no-gutters align-items-start">
+                            <div class="col-12 col-md-4 col-lg-3  " v-for="(avaUser, avaUserIdx) in group.avaUsers" >
+
+                                <div class="assignee shadow-2" @click="highlightInGroup2($event, groupIdx, avaUserIdx)">
+                                    <div class="assignee-head d-flex align-items-center px-2 py-1">
+                                        <i class="fa fa-user flex-grow-1" aria-hidden="true"></i>
+                                        <span class="text-weight text-4">{{avaUser.username}}</span>
                                     </div>
-                                    
-                                    
-        
-                                </div>
-            
-                            </div>
-                        </div>
-        
-                    </div>
-                </div>
-                
-                <create-task :index="groupIdx" :id="group._id"></create-task> 
 
-
-                <div class="task-unit">
-                Description:
-                <div class="task-unit">
-                    {{group.description}}
-                </div>
-                </div>
-
-                <div class="task-unit">
-                    Total People involved
-                    <div class="colleagues d-flex flex-wrap bg-silver p-2 rounded-4">
-                        <span v-for="(tkags, taIdx) in group.tasks" class="d-flex flex-wrap">
-                            <span class="colleague m-1" v-for="(ags, agIdx) in tkags.assignees">{{ags.username}}</span>
-                        </span>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <!-- add new group -->
-        <create-group></create-group>
-
-
-        <!-- Inidividual tasks: -->
-        <h3 class="bder-bottom indent-2 py-2 mt-5 ">Individual Tasks:</h3>
-        
-        <div class="task-unit  shadow-2 my-3" v-for="(task, taskIdx) in tasks">
-            <div class="d-flex align-items-center ">
-                <span class="flex-grow-1 text-5">{{task.name}}</span>
-
-                <!-- Show start date and due date -->
-                <span class="mx-3">Start: <span class="color-deep">{{new Date(task.start).toLocaleDateString()}}</span> </span>
-                <span class="mx-3">Due:  <span class="color-deep">{{new Date(task.due).toLocaleDateString()}}</span></span>
-                <span class="mx-2"style="
-                width: 2em;
-                height: 2em;
-                padding: 1em;
-                border: 3px solid pink;
-                border-radius: 5em;
-                display: inline-block;
-                "></span>
-
-                <button class="debtn m-0 p-0 toShowContent dplay-none" @click="expandTask" id="cool">
-                <svg class="bi bi-caret-down" width="1.8em" height="1.8em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M3.204 5L8 10.481 12.796 5H3.204zm-.753.659l4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z"/>
-                </svg>
-                </button>
-                
-                <button class="debtn m-0 p-0 toHideContent" @click="expandTask">
-                <svg class="bi bi-caret-up" width="1.8em" height="1.8em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M3.204 11L8 5.519 12.796 11H3.204zm-.753-.659l4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659z"/>
-                </svg>
-                </button>
-                
-            </div>
-
-            <div class="expanded">
-
-                <!-- Description -->
-                <div class="task-unit">
-                Description:
-                <div class="task-unit">
-                    {{task.description}}
-                </div>
-                </div>
-
-                <!-- Involved People -->
-                <div class="task-unit">
-                    People involved
-                    <div class="colleagues d-flex flex-wrap bg-silver p-2 rounded-4">
-                        
-                        <span class="colleague" v-for="(assignee, assignee_idx) in task.assignees ">{{assignee.username}}</span>
-                        
-                        <button class=" debtn task-new color-orange m-1 rounded-4" @click.stop="addNewPeople(taskIdx, $event)">+</button>
-    
-                        <div class="task-unit break new-colleague dplay-none">
-    
-                            <div class="row no-gutters">
-                                
-                                <div class="col-12 col-md-4 col-lg-3 assignee" v-for="(user, i) in task.avaUsers">
-                                    <div @click="highlight($event, taskIdx, i)">
-                                        
-                                        <div class="assignee-head d-flex align-items-center px-2 py-1">
-                                            <span class="flex-grow-1">{{user.username}}</span>
-                                            <span class="colleague-small"></span>
-                                        </div>
-            
-                                        <div class="assignee-body d-flex flex-wrap">
-                                            <span class="assignee-skill">Hosting</span>
-                                            <span class="assignee-skill">Code</span>
-                                            <span class="assignee-skill">Web</span>
-                                            <span class="assignee-skill">Consult</span>
-                                            <span class="assignee-skill">UI design</span>
-                                        </div>
+                                    <div class="d-flex flex-wrap">
+                                         <div v-show="avaUser.preferences.length == 0" class="text-center w-100 m-2 text-weight">(No preference selected)</div>
+                                        <span class="preference shadow-2" v-for="preference in avaUser.preferences">{{preference.name}}</span>
                                     </div>
                                 </div>
-                                
-                                <div class="col-12 d-flex justify-content-end" >
-                                    <button class="btn btn-primary mx-2 res-w-20" v-show="task.readyToAdd.length > 0" @click.stop="addUsersToTask(taskIdx, $event)">ADD USERS</button>
-                                </div>
-                                
-
                             </div>
-                            
-                            
+
+
+                            <div class="col-12 text-center">--- Below are unavailable users(THEY CANNOT BE ASSIGNED) --- </div>
+
+                            <div v-show="group.unavaUsers.length == 0" class="col-12 text-center text-weight">(EMPTY)</div>
+                            <div class="col-12 col-md-4 col-lg-3  " v-for="(unavaUser, unavaUserIdx) in group.unavaUsers">
+
+                                <div class="assignee shadow-2 ">
+                                    <div class="assignee-head d-flex align-items-center px-2 py-1 color-silver">
+                                        <i class="fa fa-user flex-grow-1" aria-hidden="true"></i>
+                                        <span class="text-weight text-4">{{unavaUser.username}}</span>
+                                    </div>
+
+                                    <div class="d-flex flex-wrap color-silver">
+                                        <div v-show="unavaUser.preferences.length == 0" class="text-center w-100 m-2 text-weight">(No preference selected)</div>
+                                        <span class="preference shadow-2" v-for="preference in unavaUser.preferences">{{preference.name}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 d-flex justify-content-end">
+                                <button class="btn btn-primary mx-2 res-w-20" v-show="group.readyToAdd.length > 0" @click.stop="addUsersToGroup(groupIdx, $event)">ADD USERS</button>
+                            </div>
+
 
                         </div>
-    
+
                     </div>
+
+                </div>
+            </div>
+
+            <hr>
+            <div class="text-5 text-weight indent-2">Tasks</div>
+            <!-- show tasks -->
+            <div class="task-unit  shadow-2 my-3" v-for="(task, taskIdx) in group.tasks" >
+                <div class="d-flex align-items-center ">
+                    <span class="flex-grow-1 text-5">{{task.name}}</span>
+
+
+
+                    <button class="debtn m-0 p-0 toShowContent dplay-none" @click="expandTask" id="cool">
+                    <svg class="bi bi-caret-down" width="1.8em" height="1.8em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M3.204 5L8 10.481 12.796 5H3.204zm-.753.659l4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z"/>
+                    </svg>
+                    </button>
+
+                    <button class="debtn m-0 p-0 toHideContent" @click="expandTask">
+                    <svg class="bi bi-caret-up" width="1.8em" height="1.8em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M3.204 11L8 5.519 12.796 11H3.204zm-.753-.659l4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659z"/>
+                    </svg>
+                    </button>
+
                 </div>
 
+                <div class="expanded">
+
+                    <!-- Show start date and due date -->
+                    <div class="task-unit">
+                        <div class="row">
+                            <div class="col-12 col-lg-4">
+                                <div class="task-attribute d-flex">
+                                    <span class="flex-grow-1">Start: </span>
+                                    <span class="color-deep">{{new Date(task.start).toLocaleDateString()}}</span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-4" >
+                                <!--<div class="task-attribute" :class="{'bg-overdue' : compareTimeInStr(todayDate, task.due) === 1}">-->
+                                <!--    Due: <span class="color-deep">{{new Date(task.due).toLocaleDateString()}}</span>-->
+                                <!--</div>-->
+                                <div class="task-attribute d-flex" :class="{'bg-overdue' : task.isCompleted ? compareTimeInStr(task.complete, task.due) === 1 : compareTimeInStr(todayDate, task.due) === 1}">
+                                    <span class="flex-grow-1">Due: </span>
+                                    <span class="color-deep">{{new Date(task.due).toLocaleDateString()}}</span>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-lg-4 " >
+                                <div v-if="task.isCompleted" class="task-attribute d-flex" :class="{'bg-green-im' : task.isCompleted}">
+                                    <span class="flex-grow-1">Completed on:</span>
+                                    <span>{{new Date(task.complete).toLocaleDateString()}}</span>
+                                </div>
+
+                                <div v-if="!task.isCompleted" class="task-attribute">
+                                    Not Completed yet
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                    <!-- Description -->
+                    <div class="task-unit">
+                        <span class="text-4">Task Description</span>
+                        <textarea class="description-input"  @focus="editingTaskDescFromGroup($event, taskIdx, groupIdx)" >{{task.description}}</textarea>
+                        <!--<div class="task-unit">-->
+                        <div class="expanded d-flex dplay-none-im editing-control">
+                            <button class="btn btn-success" @click="updateTaskDescFromGroup($event, taskIdx, groupIdx)">Save</button>
+                            <button class="debtn ml-3 text-6 text-secondary" @click="uneditingTaskDescFromGroup($event, taskIdx, groupIdx)"><i class="fa fa-times" aria-hidden="true"></i></button>
+                        </div>
+                        <!--</div>-->
+                    </div>
+
+
+                    <div  class="d-flex justify-content-end my-3">
+                        <button class="clickable-red debtn mx-3" @click="deleteTaskInGroup(taskIdx, groupIdx)">
+                            <i class="fa fa-minus mx-1" aria-hidden="true"></i>
+                            <span class="mx-2">Delete Task</span>
+                        </button>
+                    </div>
+
+
+
+                </div>
             </div>
+
+            <create-task :index="groupIdx" :id="group._id"></create-task>
+
+            <div class="d-flex justify-content-end my-3">
+                <button class="clickable-red debtn mx-3 text-4" @click="deleteGroup(groupIdx)">
+                    <i class="fa fa-trash-o mx-1" aria-hidden="true"></i>
+                    <span class="mx-2">Delete Group</span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+    <!-- add new group -->
+    <create-group></create-group>
+
+
+    <!-- Inidividual tasks: -->
+    <hr class="my-5">
+
+    <h2 class="bder-bottom indent-2 py-3 ">Just Tasks:</h2>
+
+    <div class="task-unit  shadow-2 my-3" v-for="(task, taskIdx) in tasks" >
+        <div class="d-flex align-items-center ">
+            <span class="flex-grow-1 text-5">{{task.name}}</span>
+
+            <!--<button class="clickable-red debtn mx-3" @click="deleteTask(taskIdx)">-->
+            <!--    <i class="fa fa-minus mx-1" aria-hidden="true"></i>-->
+            <!--    <span class="mx-2">Delete Task</span>-->
+            <!--</button>-->
+
+            <button class="debtn m-0 p-0 toShowContent dplay-none" @click="expandTask" id="cool">
+            <svg class="bi bi-caret-down" width="1.8em" height="1.8em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M3.204 5L8 10.481 12.796 5H3.204zm-.753.659l4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z"/>
+            </svg>
+            </button>
+
+            <button class="debtn m-0 p-0 toHideContent" @click="expandTask">
+            <svg class="bi bi-caret-up" width="1.8em" height="1.8em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M3.204 11L8 5.519 12.796 11H3.204zm-.753-.659l4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659z"/>
+            </svg>
+            </button>
+
         </div>
 
-    
-        <create-task :index="-1" :id="null"></create-task> 
+        <div class="expanded">
+
+            <!-- Show start date and due date -->
+            <div class="task-unit">
+                <div class="row">
+                    <div class="col-12 col-lg-4">
+                        <div class="task-attribute ">
+                            Start: <span class="color-deep">{{new Date(task.start).toLocaleDateString()}}</span>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-4" >
+                        <!--<div class="task-attribute" :class="{'bg-overdue' : compareTimeInStr(todayDate, task.due) === 1}">-->
+                        <!--    Due: <span class="color-deep">{{new Date(task.due).toLocaleDateString()}}</span>-->
+                        <!--</div>-->
+                        <div class="task-attribute" :class="{'bg-overdue' : task.isCompleted? compareTimeInStr(task.complete, task.due) === 1 : compareTimeInStr(todayDate, task.due) === 1}">
+                            Due: <span class="color-deep">{{new Date(task.due).toLocaleDateString()}}</span>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-4 " >
+                        <div v-if="task.isCompleted" class="task-attribute" :class="{'bg-green-im' : task.isCompleted}">
+                            Completed on:
+                            <span>{{new Date(task.complete).toLocaleDateString()}}</span>
+                        </div>
+
+                        <div v-if="!task.isCompleted" class="task-attribute">
+                            Not Completed yet
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="task-unit">
+                <span class="text-4">Task Description</span>
+                <textarea class="description-input"  @focus="editingTaskDesc($event, taskIdx)" >{{task.description}}</textarea>
+                <!--<div class="task-unit">-->
+                <div class="expanded d-flex dplay-none-im editing-control">
+                    <button class="btn btn-success" @click="updateTaskDesc($event, taskIdx)">Save</button>
+                    <button class="debtn ml-3 text-6 text-secondary" @click="uneditingTaskDesc($event, taskIdx)"><i class="fa fa-times" aria-hidden="true"></i></button>
+                </div>
+                <!--</div>-->
+            </div>
+
+            <!-- Involved People -->
+            <div class="task-unit">
+                <div class="text-4 mb-3">People involved</div>
+                <div class="colleagues d-flex flex-wrap bg-silver p-2 rounded-4">
+
+                    <span class="colleague" v-for="(assignee, assignee_idx) in task.assignees ">{{assignee.username}}</span>
+
+                    <button class=" debtn task-new color-orange m-1 rounded-4" @click.stop="addNewPeople(taskIdx, $event)">+</button>
+
+                    <!-- assigning start -->
 
 
-    </main>
+                    <div class="task-unit break new-colleague dplay-none">
 
-    <footer class="mt-5"></footer>
+                        <div class="row no-gutters align-items-start">
 
+                            <div class="col-12 col-md-4 col-lg-3  " v-for="(avaUser, avaUserIdx) in task.avaUsers" >
+
+                                <div class="assignee shadow-2" @click="highlight($event, taskIdx, avaUserIdx)">
+                                    <div class="assignee-head d-flex align-items-center px-2 py-1">
+                                        <i class="fa fa-user flex-grow-1" aria-hidden="true"></i>
+                                        <span class="text-weight text-4">{{avaUser.username}}</span>
+                                    </div>
+
+                                    <div class="d-flex flex-wrap">
+                                        <div v-show="avaUser.preferences.length == 0" class="text-center w-100 m-2 text-weight">(No preference selected)</div>
+                                        <span class="preference shadow-2" v-for="preference in avaUser.preferences">{{preference.name}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-12 text-center">--- Below are unavailable users(THEY CANNOT BE ASSIGNED) --- </div>
+
+                            <div v-show="task.unavaUsers.length == 0" class="col-12 text-center text-weight">(EMPTY)</div>
+                            <div class="col-12 col-md-4 col-lg-3  " v-for="(unavaUser, unavaUserIdx) in task.unavaUsers">
+
+                                <div class="assignee shadow-2 ">
+                                    <div class="assignee-head d-flex align-items-center px-2 py-1 color-silver">
+                                        <i class="fa fa-user flex-grow-1" aria-hidden="true"></i>
+                                        <span class="text-weight text-4">{{unavaUser.username}}</span>
+                                    </div>
+
+                                    <div class="d-flex flex-wrap color-silver">
+                                        <div v-show="unavaUser.preferences.length == 0" class="text-center w-100 m-2 text-weight">(No preference selected)</div>
+                                        <span class="preference shadow-2" v-for="preference in unavaUser.preferences">{{preference.name}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 d-flex justify-content-end">
+                                <button class="btn btn-primary mx-2 res-w-20" v-show="task.readyToAdd.length > 0" @click.stop="addUsersToTask(taskIdx, $event)">
+                                    ADD USERS
+                                </button>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- end -->
+                </div>
+            </div>
+
+
+            <div  class="d-flex justify-content-end my-3">
+                <button class="clickable-red debtn mx-3" @click="deleteTaskInGroup(taskIdx, groupIdx)">
+                    <i class="fa fa-minus mx-1" aria-hidden="true"></i>
+                    <span class="mx-2">Delete Task</span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+
+    <create-task :index="-1" :id="null"></create-task>
+
+    <button id="upscroll" onclick="scrollToTop();">
+        <svg class="bi bi-arrow-up-circle-fill" width="3em" height="3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-10.646.354a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 6.207V11a.5.5 0 0 1-1 0V6.207L5.354 8.354z"/>
+        </svg>
+    </button>
+</main>
+
+<script>
+    function scrollToTop() {
+        console.log("scrolling!");
+        window.scrollTo(0, 0);
+    }
+</script>
 
 <!-- Components -->
-    <template id="createTask">
-        <div class="task-new color-silver my-2 rounded-4 w-100">
-        <button class="debtn color-silver w-100" @click="click">
-            +ADD NEW TASK
-        </button>
-        <div class="expanded px-3 dplay-none color-gray" id="cool">
-            
-            <div class="row my-3">
-                <div class="col-12 col-md-4 col-lg-6 my-2">
-                    
-                    <label class="d-block">TASK NAME</label>
-                    <input type="text" class="underline-input  indent-2 text-4" v-model="task_name">
-                    
-                    
-                </div>
+<template id="createTask">
+    <div class="task-new color-unknown my-2 rounded-4 w-100">
+    <button class="debtn color-unknown w-100" @click="click">
+        <i class="fa fa-plus" aria-hidden="true"><span class="mx-2 ">ADD NEW TASK</span></i>
+    </button>
+    <div class="expanded px-3 dplay-none " id="cool">
 
-                <div class="col-12 col-md-4  col-lg-3 my-2">
-                    <label class="d-block">START DATE</label>
-                    <input type="date" class="underline-input  indent-2 text-4" v-model="start">
-                </div>
+        <div class="row my-3">
+            <div class="col-12 col-md-4 col-lg-6 my-2">
 
-                <div class="col-12 col-md-4 col-lg-3 my-2">
-                    <label class="d-block">DUE DATE</label>
-                    <input type="date" class="underline-input indent-2 text-4"  v-model="due">
-                </div>
+                <label class="d-block text-4 text-weight">TASK NAME</label>
+                <input type="text" class="underline-input  indent-2 text-4 " v-model="task_name">
+
+
             </div>
 
-            <div class="row">
-                <label for="description" class="col-12">DESCRIPTION</label>
-                <textarea class="notification-mess col-12 " placeholder="Description..." v-model="description" id="description"></textarea>
+            <div class="col-12 col-md-4  col-lg-3 my-2">
+                <label class="d-block text-4 text-weight">START DATE</label>
+                <input type="date" class="underline-input  indent-2 text-4 " v-model="start">
             </div>
-            <div class="row my-3">
-                <div class="col-6">
-                    <button class="btn btn-secondary w-100">Cancel</button>
-                </div>
-                <div class="col-6">
-                    <button class="btn btn-primary w-100" @click="create">Add</button>
-                </div>
+
+            <div class="col-12 col-md-4 col-lg-3 my-2">
+                <label class="d-block text-4 text-weight">DUE DATE</label>
+                <input type="date" class="underline-input indent-2 text-4 "  v-model="due">
             </div>
-            
-            
         </div>
+
+        <div class="row">
+            <label for="description" class="col-12 text-4 text-weight">DESCRIPTION</label>
+            <textarea class="notification-mess col-12 " placeholder="Description..." v-model="description" id="description"></textarea>
         </div>
-    </template>
+        <div class="row my-3">
+            <!--<div class="col-6">-->
+            <!--    <button class="btn btn-secondary w-100">Cancel</button>-->
+            <!--</div>-->
+            <!--<div class="col-6">-->
+            <!--    <button class="btn btn-primary w-100" @click="create">Add</button>-->
+            <!--</div>-->
 
-    <template id="createGroup">
-        <div class="task-new color-unknown my-2 rounded-4 w-100">
-        <button class="debtn color-unknown w-100" @click="click">
-            +ADD NEW GROUP
-        </button>
-        <div class="expanded px-3 dplay-none" id="cool">
-            
-            <div class="row my-3">
-                <div class="col-12 col-md-4 col-lg-6 my-2">
-                    
-                    <label class="d-block">GROUP NAME</label>
-                    <input type="text" class="underline-input color-unknown indent-2 text-4" v-model="name">
-                    
-                    
-                </div>
+            <div class="col-4">
+                <button class="debtn clickable w-100 py-2 text-4 text-weight" @click="create" style="color: rgb(77, 77, 77);">Add</button>
+            </div>
+            <button class="preference-delete" @click="click"><i class="fa fa-times" aria-hidden="true"></i></button>
 
-                <div class="col-12 col-md-4  col-lg-3 my-2">
-                    <label class="d-block">START DATE</label>
-                    <input type="date" class="underline-input color-unknown indent-2 text-4" v-model="start">
-                </div>
+        </div>
 
-                <div class="col-12 col-md-4 col-lg-3 my-2">
-                    <label class="d-block">DUE DATE</label>
-                    <input type="date" class="underline-input color-unknown  indent-2 text-4" v-model="due">
-                </div>
+
+    </div>
+    </div>
+</template>
+
+<template id="createGroup">
+    <div class="task-new color-newgroup my-2 rounded-4 w-100">
+    <button class="debtn color-newgroup w-100" @click="click">
+
+        <i class="fa fa-plus" aria-hidden="true"><span class="mx-2">ADD NEW GROUP</span></i>
+    </button>
+    <div class="expanded px-3 dplay-none" id="cool">
+
+        <div class="row my-3">
+            <div class="col-12 col-md-4 my-2 ">
+
+                <label class="d-block text-4 text-weight">GROUP NAME</label>
+                <input type="text" class="underline-input indent-2 text-4" v-model="name">
+
+
             </div>
 
-            <div class="row">
-                <label for="description" class="col-12">DESCRIPTION</label>
-                <textarea class="notification-mess col-12 " placeholder="Description..." v-model="description" id="description"></textarea>
+            <div class="col-12 col-md-4  my-2">
+
+
+                    <label class="d-block text-4 text-weight">START DATE</label>
+                    <input type="date" class="underline-input indent-2 text-4" v-model="start">
+
+
             </div>
 
-            <div class="row my-3">
-                <div class="col-6">
-                    <button class="btn btn-secondary w-100">Cancel</button>
-                </div>
-                <div class="col-6">
-                    <button class="btn btn-primary w-100" @click="addNewGroup">Add</button>
-                </div>
+            <div class="col-12 col-md-4  my-2">
+
+                    <label class="d-block text-4 text-weight">DUE DATE</label>
+                    <input type="date" class="underline-input indent-2 text-4" v-model="due">
+
+
             </div>
-            
-            
         </div>
+
+        <div class="row">
+            <label for="description" class="col-12 text-4 text-weight">DESCRIPTION</label>
+            <textarea class="notification-mess col-12 " placeholder="Description..." v-model="description" id="description"></textarea>
         </div>
-    </template>
+
+        <div class="row my-3">
+            <div class="col-4">
+                <button class="debtn clickable w-100 py-2 text-4 text-weight" @click="addNewGroup">Add</button>
+            </div>
+            <button class="preference-delete" @click="click"><i class="fa fa-times" aria-hidden="true"></i></button>
+        </div>
 
 
-    <script src="/javascripts/manageTasks.js"></script>
+    </div>
+    </div>
+</template>
 
 
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<!--<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>-->
-<!--<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>-->
-<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>-->
-</body>
-</html>
+<script src="/javascripts/manageTasks.js"></script>
+
+<%- include('partials/footer.ejs') %>
