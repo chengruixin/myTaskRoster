@@ -1,54 +1,26 @@
 const mysql = require('mysql');
 
+//mysql://b345f05417708e:13aaf69f@us-cdbr-east-02.cleardb.com/heroku_ecd9e8110e8899b?reconnect=true
 
+// mysql --host=us-cdbr-east-02.cleardb.com --user=b345f05417708e --password=13aaf69f --reconnect heroku_ecd9e8110e8899b
 const con = mysql.createPool({
-    host : 'localhost',
-    //optional for local dev
-    // user : 'root',
-    // password : 'password',
+    host : 'us-cdbr-east-02.cleardb.com',
+    // optional for local dev
+    user : 'b345f05417708e',
+    password : '13aaf69f',
+    database: 'heroku_ecd9e8110e8899b'
 
 });
-const dbName = "YouTask_1";
-const createUsersTable = `
-    CREATE TABLE Users(
-        _id INT NOT NULL AUTO_INCREMENT,
-        username VARCHAR(256),
-        email VARCHAR(256),
-        password VARCHAR(256),
-        lookup VARCHAR(256),
-        identity VARCHAR(256),
-        available BOOLEAN default true,
-        preferences VARCHAR(1024),
-        isThirdParty BOOLEAN,
-        phone VARCHAR(256)
-        PRIMARY KEY(_id)
-    )`;
+const dbName = "heroku_ecd9e8110e8899b";
 
-const createTasksTable = `CREATE TABLE Tasks(
-                            _id INT NOT NULL AUTO_INCREMENT,
-                            group_id INT,
-                            name varchar(256),
-                            description varchar(1024),
-                            start date,
-                            due date,
-                            complete date,
-                            isCompleted BOOLEAN default false,
-                            primary key(_id),
-                            FOREIGN KEY(group_id) REFERENCES Groups(_id)
-                            )`;
-const createGroupsTable = "CREATE TABLE Groups(_id INT NOT NULL AUTO_INCREMENT, name varchar(256), description varchar(1024) , start date, due date, primary key(_id) )"
+const createUsersTable = "CREATE TABLE Users(_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,username VARCHAR(256),email VARCHAR(256), password VARCHAR(256),lookup VARCHAR(256),identity VARCHAR(256),available BOOLEAN default true,preferences VARCHAR(1024), isThirdParty BOOLEAN, phone VARCHAR(256)  )";
+
+const createTasksTable = "CREATE TABLE Tasks(_id INT NOT NULL AUTO_INCREMENT,group_id INT,name varchar(256),description varchar(1024),start date,due date,complete date,isCompleted BOOLEAN default false,primary key(_id),FOREIGN KEY(group_id) REFERENCES Groups(_id))";
+const createGroupsTable = "CREATE TABLE Groups(_id INT NOT NULL AUTO_INCREMENT, name varchar(256), description varchar(1024) , start date, due date, primary key(_id) )";
 const createUsers_TasksTable = "CREATE TABLE Users_Tasks (user_id INT, task_id INT, FOREIGN KEY(user_id) REFERENCES Users(_id), FOREIGN KEY (task_id) REFERENCES Tasks(_id) ON DELETE CASCADE )";
 const createUsers_GroupsTable = "CREATE TABLE Users_Groups (user_id INT, group_id INT, FOREIGN KEY(user_id) REFERENCES Users(_id), FOREIGN KEY (group_id) REFERENCES Groups(_id) ON DELETE CASCADE )";
 
-const createPreferencesTable = `
-    CREATE TABLE Preferences (
-        _id INT NOT NULL AUTO_INCREMENT,
-        user_id INT,
-        name VARCHAR(256),
-        FOREIGN KEY(user_id) REFERENCES Users(_id),
-        primary key(_id)
-    )
-`;
+const createPreferencesTable = `CREATE TABLE Preferences (_id INT NOT NULL AUTO_INCREMENT,user_id INT,name VARCHAR(256),FOREIGN KEY(user_id) REFERENCES Users(_id),primary key(_id))`;
 
 
 function query(sql, values) {
@@ -109,38 +81,38 @@ async function dbConnect(){
         //Create tables Tasks, Users , Tasks_Users and Groups for dbName if DONT HAVE
         const tables = await query("show tables");
 
-        if(!hasTable(tables, "Users", dbName)){
-            await query(createUsersTable);
-            console.log("Create Users table");
-        }
+        // if(!hasTable(tables, "Users", dbName)){
+        //     await query(createUsersTable);
+        //     console.log("Create Users table");
+        // }
 
-        if(!hasTable(tables, "Groups", dbName)){
-            await query(createGroupsTable);
-            console.log("Create Groups table");
+        // if(!hasTable(tables, "Groups", dbName)){
+        //     await query(createGroupsTable);
+        //     console.log("Create Groups table");
 
-        }
+        // }
 
-        if(!hasTable(tables, "Tasks", dbName)){
-            await query(createTasksTable);
-            console.log("Create Tasks table");
+        // if(!hasTable(tables, "Tasks", dbName)){
+        //     await query(createTasksTable);
+        //     console.log("Create Tasks table");
 
-        }
+        // }
 
 
-        if(!hasTable(tables, "Users_Tasks", dbName)){
-            await query(createUsers_TasksTable);
-            console.log("Create Users_Tasks table");
-        }
+        // if(!hasTable(tables, "Users_Tasks", dbName)){
+        //     await query(createUsers_TasksTable);
+        //     console.log("Create Users_Tasks table");
+        // }
 
-        if(!hasTable(tables, "Users_Groups", dbName)){
-            await query(createUsers_GroupsTable);
-            console.log("Create Users_Groups table");
-        }
+        // if(!hasTable(tables, "Users_Groups", dbName)){
+        //     await query(createUsers_GroupsTable);
+        //     console.log("Create Users_Groups table");
+        // }
 
-        if(!hasTable(tables, "Preferences", dbName)){
-            await query(createPreferencesTable);
-            console.log("Create Preferences table");
-        }
+        // if(!hasTable(tables, "Preferences", dbName)){
+        //     await query(createPreferencesTable);
+        //     console.log("Create Preferences table");
+        // }
 
         console.log("Connected to " + dbName);
     }
