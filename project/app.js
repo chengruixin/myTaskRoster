@@ -11,6 +11,7 @@ const testRouter = require('./routes/test');
 const tasksRouter = require('./routes/tasks');
 const groupsRouter = require('./routes/groups');
 const authRouter = require('./routes/auth');
+const expAutoSan = require('express-autosanitizer');
 const app = express();
 
 //connect to db
@@ -18,6 +19,7 @@ dbConnect();
 
 /* Middleware-1 */
 //app.use(logger('dev'));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 //app.use(cookieParser());
@@ -29,6 +31,7 @@ app.use(session({
     cookie : {secure : false}
 }));
 
+app.use(expAutoSan.allUnsafe);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/tasks', tasksRouter);

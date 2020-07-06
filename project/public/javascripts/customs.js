@@ -5,7 +5,7 @@ class Ajax {
                 let xhttp = new XMLHttpRequest();
                 xhttp.open('get', url, true);
                 xhttp.send();
-    
+
                 xhttp.onreadystatechange = function(){
                     if(this.readyState == 4) {
                         if(this.status == 200){
@@ -18,12 +18,12 @@ class Ajax {
                             });
                         }
                     }
-                    
+
                 }
             }
 
             catch(err){
-                reject(err);    
+                reject(err);
             }
 
         });
@@ -50,11 +50,40 @@ class Ajax {
                             });
                         }
                     }
-                    
+
                 }
             }
 
             catch(err){
+                reject(err);
+            }
+        })
+    }
+
+    delete = (url) => {
+        return new Promise((resolve, reject) => {
+            try{
+                let xhttp = new XMLHttpRequest();
+                xhttp.open('DELETE', url, true);
+                xhttp.send();
+
+                xhttp.onreadystatechange = function(){
+                    if(this.readyState == 4){
+                        if(this.status == 200){
+                            resolve(JSON.parse(this.responseText));
+                        }
+                        else {
+                            reject({
+                                data :  JSON.parse(this.responseText),
+                                status: this.status
+                            });
+                        }
+                    }
+                }
+            }
+
+            catch(err){
+                console.log(err);
                 reject(err);
             }
         })
@@ -76,7 +105,7 @@ class Validator {
         this.max_password_length = 30;
     }
 
-    /*  
+    /*
         @validateEmail(string)
         Example of valid email id:
 
@@ -90,12 +119,12 @@ class Validator {
     isValidEmail (string) {
         return this.email_pattern.test(string);
         //const email_pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        
+
     }
 
     /*
         @validatePassword(string)
-        
+
         Minimum eight characters, at least one letter and one number:
         "^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
 
@@ -112,7 +141,7 @@ class Validator {
         "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$"
 
         copied from:https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
-        
+
         Answered by : Srinivas
         Edited by: Wiktor Stribiżew
     */
@@ -168,7 +197,7 @@ class Validator {
     hasEmptyInputs(obj){
         for(const prop in obj){
             //console.log(obj[prop]);
-            if(obj[prop] == ""){
+            if(obj[prop] == "" || obj[prop] == null){
                 return true;
             }
         }
@@ -177,3 +206,21 @@ class Validator {
     }
 }
 
+
+function compareTimeInStr(str1, str2){
+    const date1 = new Date(str1);
+    const date2 = new Date(str2);
+
+    // console.log("Comparing ", date1.getTime(), " and " , date2.getTime());
+    if(date1.getTime() > date2.getTime()) return 1;
+    else if(date1.getTime() === date2.getTime()) return 0;
+    else return -1;
+}
+
+
+function compareTimeInDate(date1, date2){
+    // console.log("Comparing ", date1.getTime(), " and " , date2.getTime());
+    if(date1.getTime() > date2.getTime()) return 1;
+    else if(date1.getTime() === date2.getTime()) return 0;
+    else return -1;
+}

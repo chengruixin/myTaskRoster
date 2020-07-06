@@ -9,30 +9,47 @@ const con = mysql.createPool({
 
 });
 const dbName = "YouTask_1";
-const createUsersTable = `CREATE TABLE Users(
-                            _id INT NOT NULL AUTO_INCREMENT,
-                            username VARCHAR(256),
-                            email VARCHAR(256),
-                            password VARCHAR(256),
-                            lookup VARCHAR(256),
-                            identity VARCHAR(256),
-                            available BOOLEAN,
-                            preferences VARCHAR(1024),
-                            isThirdParty BOOLEAN,
-                            PRIMARY KEY(_id)
-                            )`;
+const createUsersTable = `
+    CREATE TABLE Users(
+        _id INT NOT NULL AUTO_INCREMENT,
+        username VARCHAR(256),
+        email VARCHAR(256),
+        password VARCHAR(256),
+        lookup VARCHAR(256),
+        identity VARCHAR(256),
+        available BOOLEAN default true,
+        preferences VARCHAR(1024),
+        isThirdParty BOOLEAN,
+        phone VARCHAR(256)
+        PRIMARY KEY(_id)
+    )`;
 
 const createTasksTable = `CREATE TABLE Tasks(
                             _id INT NOT NULL AUTO_INCREMENT,
-                            group_id INT, name varchar(256),
+                            group_id INT,
+                            name varchar(256),
                             description varchar(1024),
                             start date,
                             due date,
+                            complete date,
+                            isCompleted BOOLEAN default false,
                             primary key(_id),
                             FOREIGN KEY(group_id) REFERENCES Groups(_id)
                             )`;
 const createGroupsTable = "CREATE TABLE Groups(_id INT NOT NULL AUTO_INCREMENT, name varchar(256), description varchar(1024) , start date, due date, primary key(_id) )"
-const createUsers_TasksTable = "CREATE TABLE Users_Tasks (user_id INT, task_id INT, FOREIGN KEY(user_id) REFERENCES Users(_id), FOREIGN KEY (task_id) REFERENCES Tasks(_id) )";
+const createUsers_TasksTable = "CREATE TABLE Users_Tasks (user_id INT, task_id INT, FOREIGN KEY(user_id) REFERENCES Users(_id), FOREIGN KEY (task_id) REFERENCES Tasks(_id) ON DELETE CASCADE )";
+const createUsers_GroupsTable = "CREATE TABLE Users_Groups (user_id INT, group_id INT, FOREIGN KEY(user_id) REFERENCES Users(_id), FOREIGN KEY (group_id) REFERENCES Groups(_id) ON DELETE CASCADE )";
+
+const createPreferencesTable = `
+    CREATE TABLE Preferences (
+        _id INT NOT NULL AUTO_INCREMENT,
+        user_id INT,
+        name VARCHAR(256),
+        FOREIGN KEY(user_id) REFERENCES Users(_id),
+        primary key(_id)
+    )
+`;
+
 
 function query(sql, values) {
     return new Promise((resolve, reject) => {
@@ -113,6 +130,16 @@ async function dbConnect(){
         if(!hasTable(tables, "Users_Tasks", dbName)){
             await query(createUsers_TasksTable);
             console.log("Create Users_Tasks table");
+        }
+
+        if(!hasTable(tables, "Users_Groups", dbName)){
+            await query(createUsers_GroupsTable);
+            console.log("Create Users_Groups table");
+        }
+
+        if(!hasTable(tables, "Preferences", dbName)){
+            await query(createPreferencesTable);
+            console.log("Create Preferences table");
         }
 
         console.log("Connected to " + dbName);

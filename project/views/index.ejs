@@ -1,17 +1,87 @@
-<%- include('partials/header.ejs') %> 
+<%- include('partials/header.ejs') %>
+
+
+<div class="intro d-flex flex-column align-items-center justify-content-center " >
+    <h1 class=" text-center" style="font-size : 4em;">YouTask</h1>
+    <p class="lead  text-center px-3  " style="font-size : 2em;">To manage & assign tasks easily on your work</p>
+</div>
 
 <main class="container" id="main">
-    
-    <div class="jumbotron jumbotron-fluid bg-light rounded-2">
-        <div class="container">
-            <h1 class="text-8">Welcome!</h1>
-            <p class="lead text-3">Hello, welcome to YouTask where you could manage/assign tasks to make your work easily</p>
+
+    <!--<div class="jumbotron jumbotron-fluid bg-light rounded-2">-->
+    <!--    <div class="container">-->
+    <!--        <h1 class="text-8">Welcome!</h1>-->
+    <!--        <p class="lead text-3">Hello, welcome to YouTask where you could manage/assign tasks to make your work easily</p>-->
+    <!--    </div>-->
+    <!--</div>-->
+
+
+    <div>
+
+        <h3 class="bder-bottom indent-2 py-2 ">
+            Today's Tasks
+            <sup class="count shadow-2">{{todayTasks.length}}</sup>
+        </h3>
+
+
+
+        <div class="task-unit bg-green shadow-2" v-for="(task,index) in todayTasks">
+
+                <div class="d-flex align-items-center ">
+                    <span class="flex-grow-1 text-weight text-4 indent-4">{{task.name.toUpperCase()}}</span>
+                </div>
+
+
+                <div class="task-unit">
+                    <span class="text-weight">People Involved</span>
+                    <div class="colleagues">
+                        <span class="colleague shadow-1" v-for="(person,index) in task.assignees">{{person.username}}</span>
+                    </div>
+                </div>
+
         </div>
     </div>
-    
-    
-    
+
+    <div>
+        <h3 class="bder-bottom indent-2 py-2 ">
+            Overdue Tasks
+             <sup class="count shadow-2">{{overdueTasks.length}}</sup>
+        </h3>
+        <div class="task-unit bg-orange shadow-2" v-for="(task,index) in overdueTasks">
+
+                <div class="d-flex align-items-center ">
+                    <span class="flex-grow-1 text-weight text-4 indent-4">{{task.name.toUpperCase()}}</span>
+                </div>
+
+
+                <div class="task-unit">
+                    <span class="text-weight">People Involved</span>
+                    <div class="colleagues">
+                        <span class="colleague shadow-1" v-for="(person,index) in task.assignees">{{person.username}}</span>
+                    </div>
+                </div>
+
+        </div>
+    </div>
 </main>
 
+<!-- Get today tasks and overdue tasks from server side  -->
+<script>
+    const todayTasks =<%- JSON.stringify(todayTasks) %>;
+    const overdueTasks =<%- JSON.stringify(overdueTasks) %>;
 
-<%- include('partials/footer.ejs') %> 
+    console.log({todayTasks});
+    console.log({overdueTasks});
+</script>
+
+<script>
+    const mainApp = new Vue({
+        el: "#main",
+        data : {
+            todayTasks : todayTasks,
+            overdueTasks : overdueTasks
+        }
+
+    })
+</script>
+<%- include('partials/footer.ejs') %>

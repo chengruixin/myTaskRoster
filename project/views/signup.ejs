@@ -1,4 +1,4 @@
-<%- include('partials/header.ejs') %> 
+<%- include('partials/header.ejs') %>
 
 <main id="main">
 
@@ -11,9 +11,9 @@
                 <label for="username">Username</label>
                 <input type="text" class="form-control py-4" v-model="username">
             </div>
-            
+
             <div class="form-group ">
-                <label for="username">Email</label>
+                <label for="email">Email</label>
                 <input type="email" class="form-control py-4" v-model="email">
             </div>
 
@@ -23,20 +23,35 @@
             </div>
 
             <div class="form-group ">
-                <label for="password">Confirm Password</label>
+                <label for="rePass">Confirm Password</label>
                 <input type="password" class="form-control py-4" v-model="rePass">
             </div>
-    
+
+            <div class="form-group">
+                <label for="identity">Which Identity?</label>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <button class="w-100 identity-select identity-purple" @click="curIdentity" id="manager-select">Managers</button>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <button class="w-100 identity-select identity-blue" @click="curIdentity" id="normal-select">Normal Users</button>
+                    </div>
+                </div>
+            </div>
             <div class="my-4">
                 <button class="btn btn-primary w-100 py-3 text-3" @click="createAccount">Signup</button>
             </div>
-            
+
+            <div class="form-group">
+                Already got an account? <a href="/auth/login">Log in</a>
+            </div>
+
             <div v-show="info.length > 0">{{info}}</div>
         </div>
     </div>
-    
+
 
 </main>
 
 <script src="/javascripts/signup.js"></script>
-<%- include('partials/footer.ejs') %> 
+<%- include('partials/footer.ejs') %>

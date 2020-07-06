@@ -1,0 +1,105 @@
+<%- include('partials/header.ejs') %>
+
+
+<main id="mainApp" v-cloak>
+    <div class="container d-flex justify-content-center">
+        <div class="res-w-30">
+            <div>
+                <h4>
+                    Please add profile to your account
+                </h4>
+            </div>
+            <div class="form-group ">
+                <label for="username">Username</label>
+                <input type="text" class="form-control py-4" v-model="username">
+            </div>
+
+
+            <div class="form-group">
+                <label for="identity">Which Identity?</label>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <button class="w-100 identity-select" @click="curIdentity" id="manager-select">Managers</button>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <button class="w-100 identity-select" @click="curIdentity" id="normal-select">Normal Users</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="my-4">
+                <button class="btn btn-success w-100" @click="createAccount">Create</button>
+            </div>
+
+            <div>
+                {{info}}
+            </div>
+        </div>
+
+    </div>
+</main>
+
+
+<script>
+    const mainApp = new Vue({
+        el : "#mainApp",
+        data : {
+            username : null,
+            identity : null,
+            info: ""
+        },
+
+        methods: {
+            createAccount : async function(){
+                try{
+                    this.info = "";
+
+                    const newUser = {
+                        username: this.username,
+                        identity: this.identity
+                    }
+
+                    const validator = new Validator();
+                    const ajax = new Ajax();
+
+                    if(validator.hasEmptyInputs(newUser)) {
+                       this.info = "inputs should not be empty";
+                    }
+                    else if(!validator.isValidUsername(this.username)) {
+                        this.info = "Invalid username format"
+                    }
+                    else {
+                        const result = await ajax.post('/auth/profile/new', newUser);
+
+                        console.log(result);
+                        setTimeout(function(){ window.location.replace('/'); }, 1000);
+                        // console.log({newUser});
+                    }
+
+                }
+                catch(err){
+                    this.info = err.data.message;
+                    console.log(err);
+                }
+            },
+            curIdentity: function(event){
+
+                const managerDOM = document.querySelector('#manager-select');
+                const normalDOM = document.querySelector('#normal-select');
+                console.log(managerDOM, normalDOM, event.target);
+                if(event.target === managerDOM) {
+                    managerDOM.classList.add('identity-select-purple');
+                    normalDOM.classList.remove('identity-select-blue');
+                    this.identity = 'manager';
+                }
+                else if(event.target === normalDOM){
+                    managerDOM.classList.remove('identity-select-purple');
+                    normalDOM.classList.add('identity-select-blue');
+                    this.identity = 'normal';
+                }
+            }
+        }
+    })
+</script>
+<%- include('partials/footer.ejs') %>

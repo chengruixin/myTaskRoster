@@ -91,6 +91,9 @@
     display: none;
 }
 
+.dplay-none-im {
+    display: none !important;
+}
 .bder-bottom {
     border-bottom: 1px solid silver;
 }
@@ -108,12 +111,13 @@
 }
 
 .underline-input {
-  background: none;
-  border: none;
-  border-bottom: 1px solid rgb(221,221,221);
-  width: 8em;
-  padding: 0.5em 0;
-  
+    background: none;
+    border: none;
+    border-bottom: 1px solid rgb(221,221,221);
+
+    width: 100%;
+    padding: 0.5em 0;
+
 }
 
 .underline-input:focus {
@@ -126,7 +130,7 @@
   border-bottom: 1px solid rgb(221, 221, 221) ;
   padding: 0.2em 1em;
   background: none;
-  
+
 }
 
 .no-focus:focus {
@@ -155,4 +159,103 @@
 
 .clip-padding {
     background-clip: padding-box;
+}
+
+.clickable {
+    background-color: rgb(217, 217, 217);
+    color: silver;
+    font-weight : 600;
+    padding: 0.3em 0.5em;
+    opacity: 0.7;
+    transition: 0.4s;
+    border-radius : 0.3em;
+}
+
+.clickable:hover {
+    background-color: rgb(128, 128, 128);
+    color: white;
+    opacity: 1;
+}
+
+.clickable-red {
+    background-color: rgb(207, 81, 61);;
+    color: silver;
+    font-weight : 600;
+    padding: 0.3em 0.5em;
+    opacity: 0.8;
+    transition: 0.2s;
+    border-radius : 0.3em;
+}
+
+.clickable-red:hover{
+    background-color: rgb(227, 101, 81);
+    color: white;
+    opacity: 1;
+}
+.task-attribute {
+    background-color: rgb(230, 230, 230);
+    border-radius: 0.4em;
+    padding: 0.2em 0.4em;
+    transition: 0.3s;
+    margin : 0.2em 0.1em;
+    /*margin: 0em 0.5em;*/
+}
+
+.task-attribute:hover{
+    background-color: rgb(200, 200, 200);
+}
+
+
+.alignitems{
+    display: flex;
+    align-items: center;
+}
+
+.stick-bottom {
+    position:fixed;
+    bottom: 2em;
+    z-index : 3;
+    opacity: 0.6;
+}
+
+/* hide input number arrows*/
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.responsive-display {
+    display: none;
+}
+@media screen and (max-width: 780px) {
+  .responsive-hidden {
+    display: none !important;
+  }
+
+  .navbar-logo {
+      margin-left: 0em;
+      flex-grow: 1;
+    }
+
+    .responsive-display {
+        display: inline-block;
+    }
+
+    .intro{
+        height : 30vh;
+    }
+
+    .intro h1 {
+        font-size : 2.3em!important;
+    }
+
+    .intro p {
+        font-size: 1.4em !important;
+    }
 }

@@ -32,7 +32,8 @@ router.post('/google/verify', async (req, res) => {
             else {
                 req.session.user = {
                     userId : users[0]._id,
-                    username : users[0].username
+                    username : users[0].username,
+                    identity : users[0].identity
                 }
             }
 
@@ -61,12 +62,12 @@ router.post('/google/verify', async (req, res) => {
 
 });
 
-router.get('/username/new', (req,res) => {
+router.get('/profile/new', (req,res) => {
     console.log(req.session);
-    res.render('create-username.ejs');
+    res.render('create-profile.ejs');
 })
 
-router.post('/username/new', async (req, res)=> {
+router.post('/profile/new', async (req, res)=> {
 
     try{
         const {verification} = req.session;
@@ -81,15 +82,17 @@ router.post('/username/new', async (req, res)=> {
             if(users.length > 0){
                 res.status(400).json({
                     message: "Repeated username, try again"
-                })
+                });
             }
             else {
-                const savedRes = await query(`INSERT INTO Users (username, email, isThirdParty) VALUES ('${req.body.username}','${req.session.verification.email}',true)`);
+
+                const savedRes = await query(`INSERT INTO Users (username, email, identity,isThirdParty) VALUES ('${req.body.username}','${req.session.verification.email}', '${req.body.identity}',true)`);
 
                 req.session.verification = null;
                 req.session.user = {
                     username : req.body.username,
-                    userId : savedRes.insertId
+                    userId : savedRes.insertId,
+                    identity: req.body.identity
                 }
 
 
@@ -120,7 +123,8 @@ router.get('/checkStatus', async(req, res)=> {
     else res.json({
         isLoggedIn : true,
         username : user.username,
-        userId : user.userId
+        userId : user.userId,
+        identity : user.identity
     })
 })
 router.get('/signup', (req, res) => {
@@ -142,16 +146,18 @@ router.post('/signup', async (req, res) => {
             });
         }
         else {
-            const {username,email,password} = req.body;
+            const {username, email, password, identity} = req.body;
             const hashed = await argon2.hash(password);
             console.log(username, email, hashed, password);
-            const savedRes = await query(`INSERT INTO Users (username, email, password, lookup, isThirdParty) VALUES (?,?,?,?,?)`, [username,email,hashed, password,false]);
+            const savedRes = await query(`INSERT INTO Users (username, email, password, lookup, identity, isThirdParty) VALUES (?,?,?,?,?,?)`, [username, email, hashed, password, identity, false]);
 
             console.log(savedRes);
+
             //assign session token
             req.session.user = {
                 username : username,
-                userId : savedRes.insertId
+                userId : savedRes.insertId,
+                identity : identity
             }
 
 
@@ -184,9 +190,13 @@ router.post('/login', async (req, res) => {
             });
 
         else{
+
+            //assign session token
             req.session.user = {
                 userId : users[0]._id,
-                username : users[0].username
+                username : users[0].username,
+                identity : users[0].identity
+
             }
             console.log(req.session);
 

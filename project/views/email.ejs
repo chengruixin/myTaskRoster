@@ -1,8 +1,11 @@
 
-<%- include('partials/header.ejs') %> 
+<%- include('partials/header.ejs') %>
 
 <main class="container d-flex flex-column align-items-center" id="main" v-cloak>
 
+    <h3>
+        This page is incompleted neither the functions for emailing/notifying users.
+    </h3>
     <div class="align-self-start w-100 d-flex my-3">
         <button class="debtn color-gray text-5 temp" @click="toEmails">Emails</button>
         <button class="debtn color-gray text-5 temp" @click="toSettings">Settings</button>
@@ -18,19 +21,19 @@
             </div>
 
             <div class="underline-div d-flex">
-            
+
                 <span class="flex-grow-1"> Issued date: </span>
                 <span>20-20-20</span>
             </div>
 
             <div class="underline-div d-flex">
-            
+
                 <span class="flex-grow-1"> From Task: </span>
                 <span>task number one</span>
             </div>
 
             <div class="underline-div d-flex">
-            
+
                 <span class="flex-grow-1"> From Group: </span>
                 <span>group number one</span>
             </div>
@@ -60,17 +63,17 @@
                     <path fill-rule="evenodd" d="M3.204 5L8 10.481 12.796 5H3.204zm-.753.659l4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z"/>
                 </svg>
                 </button>
-                
+
                 <button class="debtn m-0 p-0 toHideContent" @click="expandTask">
                 <svg class="bi bi-caret-up" width="1.8em" height="1.8em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M3.204 11L8 5.519 12.796 11H3.204zm-.753-.659l4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659z"/>
                 </svg>
                 </button>
-                
+
             </div>
 
             <div class="expanded">
-                
+
                 <!-- notification -->
                 <div class="row px-3">
                     <div class="rounded-div bg-light shadow-2 col-10">
@@ -78,7 +81,7 @@
                             Title
                         </div>
                         <div class="underline-div">
-                        
+
                             <span> Notified date:</span>
                             <span>20/09/20</span>
                         </div>
@@ -93,7 +96,7 @@
                             dasdfasdfsasdfasdasdfasdfsasdfasdasdfasdfs
                             asdasdfasdfsasdfasdasdfasdfsasdfasasdfa
                             asdfasdasdfasdfsasdfasdasdfasdfs
-                            asdfasdasdfasdfsasdfasdasdfasdfs    
+                            asdfasdasdfasdfsasdfasdasdfasdfs
                             adfasdf
                         </p>
                     </div>
@@ -107,14 +110,14 @@
                         </div>
                     </div>
                 </div>
-                
-            
+
+
                 <div class="rounded-div bg-light shadow-2">
                     <div class="underline-div">
                         Title
                     </div>
                     <div class="underline-div">
-                    
+
                         <span> Notified date:</span>
                         <span>20/09/20</span>
                     </div>
@@ -129,9 +132,9 @@
                     <button class="debtn w-100 text-4">
                         + Add new notification
                     </button>
-    
+
                     <div class="expanded text-4 my-3 ">
-                        
+
                         <div class="rounded-div">
                             <input type="text" class="w-100 underline-input" placeholder="Title">
                         </div>
@@ -149,7 +152,7 @@
                         <div class="rounded-div my-1 py-1 ">
                             <hr class="shadow-1">
                         </div>
-                        
+
 
                         <div class="d-flex justify-content-center">
                             <button class="btn btn-secondary w-100 mx-3">Cancel</button>
@@ -157,19 +160,19 @@
                         </div>
                     </div>
                 </div>
-    
-                
+
+
 
             </div>
-            
+
         </div>
 
     </div>
-    
-    
+
+
 </main>
 
 
 <script src="javascripts/email.js"></script>
 
-<%- include('partials/footer.ejs') %> 
+<%- include('partials/footer.ejs') %>

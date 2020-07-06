@@ -3,7 +3,7 @@
 }
 
 .bg-blue {
-  background-color : #0074D9;
+  background-color : rgb(51, 133, 255);
 }
 
 .bg-aqua {
@@ -19,7 +19,11 @@
 }
 
 .bg-green {
-  background-color : #2ECC40;
+  background-color : rgb(133, 224, 133);
+}
+
+.bg-green-im {
+  background-color : rgb(133, 224, 133) !important;
 }
 
 .bg-lime {
@@ -31,7 +35,7 @@
 }
 
 .bg-orange {
-  background-color : #FF851B;
+  background-color : rgba(255, 140, 26, .7);
 }
 
 .bg-red {
@@ -63,8 +67,18 @@
   background-color: rgba(238, 237, 237, 0.815);
 }
 
+.bg-overdue{
+  background-color: rgb(255, 148, 77, 0.8) !important;
+}
+
+.bg-complete{
+  background-color: rgb(51, 204, 51) !important;
+}
 
 
+.bg-navbar {
+  background-color: rgb(74,74,74);
+}
 .color-navy {
   color: #001f3f;
 }
@@ -131,6 +145,16 @@
   color: #DDDDDD;
 }
 
+
+.color-newgroup {
+  color: rgb(41, 41, 163);
+
+}
+
+.color-white {
+  color: rgb(222, 222, 222);
+
+}
 .bd-orange {
   border-color: #FF851B !important;
 }

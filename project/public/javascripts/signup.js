@@ -5,7 +5,8 @@ var mainApp = new Vue({
         email : "",
         password : "",
         rePass : "",
-        info : ""
+        info : "",
+        identity: null
     },
 
     methods : {
@@ -15,7 +16,8 @@ var mainApp = new Vue({
                 username: this.username,
                 email : this.email,
                 password : this.password,
-                rePass : this.rePass
+                rePass : this.rePass,
+                identity: this.identity
             }
 
 
@@ -60,8 +62,40 @@ var mainApp = new Vue({
                     }
                 }
 
+                // testing
+                // if(this.info.length === 0){
+                //     try{
+                //         // const ajax = new Ajax();
+                //         // console.log(await ajax.post('/auth/signup', newUser));
+                //         // window.location.replace('/');
+                //         console.log({newUser});
+                //     }
+
+                //     catch(err){
+                //         console.log(err);
+                //         this.info += err.data.message;
+                //     }
+                // }
+
             }
 
+        },
+
+        curIdentity: function(event){
+
+            const managerDOM = document.querySelector('#manager-select');
+            const normalDOM = document.querySelector('#normal-select');
+            // console.log(managerDOM, normalDOM, event.target);
+            if(event.target === managerDOM) {
+                managerDOM.classList.add('identity-select-purple');
+                normalDOM.classList.remove('identity-select-blue');
+                this.identity = 'manager';
+            }
+            else if(event.target === normalDOM){
+                managerDOM.classList.remove('identity-select-purple');
+                normalDOM.classList.add('identity-select-blue');
+                this.identity = 'normal';
+            }
         }
     }
 })

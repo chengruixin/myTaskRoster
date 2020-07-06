@@ -1,81 +1,121 @@
-<%- include('partials/header.ejs') %> 
+<%- include('partials/header.ejs') %>
 
-    
-<main class="container py-3">
+
+<main class="container py-3" id="main" v-cloak>
+    <div>
+
+    </div>
 
     <div class="d-flex flex-column align-items-center">
+
+        <div class="alert alert-warning stick-bottom res-w-40" style="display: flex;" role="alert" id="info" v-show="info != null">
+            <span class="flex-grow-1"><strong>Notice: </strong> {{info}}</span>
+
+            <button class="preference-delete" @click="closeInfo">
+                <i class="fa fa-times" aria-hidden="true"></i>
+            </button>
+        </div>
+
         <div id="profile" class="info-table res-w-50" v-cloak>
             <div class="row positive-mg info-head ">
                 <div class="col-12 text-8">
                     Profile Info
                 </div>
             </div>
-            <div class="row  positive-mg align-items-baseline py-3 info-item">
-                <div class="col-3 ">PHOTO</div>
-                <div class="col-9 d-flex align-items-center">
-                    <span class="flex-grow-1 color-gray" >Add your photo </span>
-                    <span class="colleague-lg"></span>
+            <!--<div class="row  positive-mg align-items-baseline py-3 info-item">-->
+            <!--    <div class="col-3 ">PHOTO</div>-->
+            <!--    <div class="col-9 d-flex align-items-center">-->
+            <!--        <span class="flex-grow-1 color-gray" >Add your photo </span>-->
+            <!--        <span class="colleague-lg"></span>-->
+            <!--    </div>-->
+            <!--</div>-->
+
+            <div class="row  positive-mg info-item">
+                <div class="col-3 text-weight">NAME</div>
+                <div class="col-9 color-gray d-flex justify-content-end" @click="showUsernameInput" >
+                    <span v-show="!editingUsername">{{user.username}}</span>
+                    <div  v-show="editingUsername" class="res-w-20">
+                        <input type="text" :value="user.username" @click.stop="" class="form-control mb-2" id="username">
+
+                        <div class="d-flex justify-content-end">
+                            <button @click.stop="updateUsername" class="profile-update">Update</button>
+                            <button @click.stop="hideUsernameInput"class="preference-delete"><i class="fa fa-times" aria-hidden="true"></i></button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <!--<div class="row  positive-mg info-item">-->
+            <!--    <div class="col-3 ">BIRTHDAY</div>-->
+            <!--    <div class="col-9 color-gray">___/___/___</div>-->
+            <!--</div>-->
+
+            <!--<div class="row  positive-mg info-item">-->
+            <!--    <div class="col-3 ">GENDER</div>-->
+            <!--    <div class="col-9 color-gray">Female/Male</div>-->
+            <!--</div>-->
+
+            <div class="row  positive-mg info-item">
+                <div class="col-3 text-weight">IDENTITY</div>
+                <div class="col-9 color-gray  d-flex justify-content-end">{{user.identity.toUpperCase()}}</div>
+            </div>
+
+            <div class="row  positive-mg info-item">
+                <div class="col-3 text-weight">AVAILABLITY</div>
+                <div class="col-9 color-gray d-flex  justify-content-end">
+
+                        <button class="no-focus switch-on switch" :class="{'switch-selected' : user.available}" @click="turnon">ON</button>
+                        <button class="no-focus switch-off switch" :class="{'switch-selected' : !user.available}" @click="turnoff">OFF</button>
+
+
                 </div>
             </div>
 
             <div class="row  positive-mg info-item">
-                <div class="col-3 ">NAME</div>
-                <div class="col-9 color-gray">ABDCDDF</div>
-            </div>
-            
-            <div class="row  positive-mg info-item">
-                <div class="col-3 ">BIRTHDAY</div>
-                <div class="col-9 color-gray">___/___/___</div>
-            </div>
+                <div class="col-12 col-md-3 text-weight">PREFERENCE</div>
+                <div class="col-12 col-md-9 color-gray">
+                    <!--<span class="preference ">-->
+                    <!--    <span class="preference-tag">-->
+                    <!--        Testing-->
+                    <!--    </span>-->
+                    <!--    <button class="preference-delete">X</button>-->
+                    <!--</span>-->
 
-            <div class="row  positive-mg info-item">
-                <div class="col-3 ">GENDER</div>
-                <div class="col-9 color-gray">Female/Male</div>
-            </div>
-
-            <div class="row  positive-mg info-item">
-                <div class="col-3 ">IDENTITY</div>
-                <div class="col-9 color-gray">Manager/Normal User</div>
-            </div>
-            
-            <div class="row  positive-mg info-item">
-                <div class="col-3 ">AVAILABLITY</div>
-                <div class="col-9 color-gray">
-                    <button class="debtn ava-switch-green">ON</button>
-                    <button class="debtn ava-switch-red">OFF</button>
-                </div>
-            </div>
-
-            <div class="row  positive-mg info-item">
-                <div class="col-12 col-md-3 ">PREFERENCE</div>
-                <div class="col-12 col-md-9 color-gray d-flex flex-wrap align-items-center">
-                    <span class="preference ">
-                        <span class="preference-tag">
-                            Testing
-                        </span>
-                        <button class="preference-delete">X</button>
-                    </span>
-
-                    <span class="preference ">
-                        <span class="preference-tag">
-                            coding
-                        </span>
-                        <button class="preference-delete">X</button>
-                    </span>
-
-                    <span class="preference" v-show="!isShowing" @click="showPreferInput">
-                        <button class="preference-new">
-                            Add preference
+                    <div class=" d-flex justify-content-end" >
+                        <button class="preference-new mt-0"  @click="showPreferInput" v-show="!isShowing">
+                                New Type
                         </button>
-                    </span>
 
-                    <span class="preference" v-show="isShowing">
-                        <button class="btn btn-secondary py-1" @click="hidePreferInput">Cancel</button>
-                        <input class="underline-input py-0 indent-2 " type="text">
-                        <button class="btn btn-success py-1">Add</button>
-                    </span>
-                    
+
+                        <div v-show="isShowing" class="alignitems">
+
+                            <input class="preference form-control" type="text" v-model="newPreference">
+                            <button class="profile-update" @click="addPreference">Add</button>
+                            <button class="preference-delete" @click="hidePreferInput"><i class="fa fa-times" aria-hidden="true"></i></button>
+
+
+                        </div>
+                    </div>
+
+                    <div class="d-flex flex-wrap align-items-center">
+                        <span class="preference " v-for="(item, index) in user.preferences">
+                            <span class="preference-tag">
+                                {{item.name}}
+                            </span>
+                            <button @click="deletePreference(index)"class="preference-delete"><i class="fa fa-times" aria-hidden="true"></i></button>
+                        </span>
+                    </div>
+
+
+
+
+
+
                 </div>
+
+
             </div>
         </div>
 
@@ -87,26 +127,54 @@
                     Contact Info
                 </div>
             </div>
-            
+
 
             <div class="row  positive-mg info-item">
                 <div class="col-3 ">Email</div>
-                <div class="col-9 color-gray">123812379@asdf.com</div>
-            </div>
-            
-            <div class="row  positive-mg info-item">
-                <div class="col-3 ">PHONE</div>
-                <div class="col-9 color-gray">049999999</div>
+                <div class="col-9 color-gray d-flex justify-content-end" @click="showEmailInput" >
+                    <span v-show="!editingEmail">{{user.email}}</span>
+                    <div  v-show="editingEmail" class="res-w-20">
+                        <input type="email" :value="user.email" @click.stop="" class="form-control mb-2 " id="email">
+                        <div class="justify-content-end d-flex">
+                            <button @click.stop="updateEmail" class="profile-update" >Update</button>
+                            <button @click.stop="hideEmailInput" class="preference-delete"><i class="fa fa-times" aria-hidden="true"></i></button>
+                        </div>
+
+                    </div>
+
+                </div>
             </div>
 
-            
-            
+            <div class="row  positive-mg info-item">
+                <div class="col-3 ">PHONE</div>
+
+                <div class="col-9 color-gray d-flex justify-content-end" @click="showPhoneInput" >
+                    <span v-show="!editingPhone">{{user.phone}}</span>
+                    <div  v-show="editingPhone" class="res-w-20">
+                        <input type="number" :value="user.phone" @click.stop="" class="form-control mb-2" id="phone">
+                        <div class="justify-content-end d-flex">
+                            <button @click.stop="updatePhone" class="profile-update" >Update</button>
+                            <button @click.stop="hidePhoneInput" class="preference-delete"><i class="fa fa-times" aria-hidden="true"></i></button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+
 
         </div>
     </div>
-    
-    
+
+
 </main>
 
+<!--Get data from server -->
+<script>
+    const user = <%- JSON.stringify(user) %>;
+    console.log(user);
+</script>
 <script src="/javascripts/profile.js"></script>
-<%- include('partials/footer.ejs') %> 
+<%- include('partials/footer.ejs') %>
